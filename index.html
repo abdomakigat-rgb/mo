@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>المقارن الاحترافي | Player Compare Pro 2026</title>
+    <!-- إضافة مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* --- CSS: التنسيق والتصميم المطور --- */
         :root {
@@ -138,6 +140,15 @@
             font-weight: bold;
             font-size: 0.9rem;
             background: rgba(241, 196, 15, 0.05) !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-label i {
+            font-size: 1.2rem;
+            margin-bottom: 2px;
         }
 
         .progress-container {
@@ -163,7 +174,7 @@
 
         .trophy-count {
             color: var(--trophy);
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
         }
 
@@ -224,20 +235,20 @@
         // --- JS المطور مع بيانات حقيقية وبطولات ---
 
         const playersDatabase = [
-            { name: "ليونيل ميسي", goals: 830, assists: 360, pace: 78, shooting: 90, passing: 95, dribbling: 96, trophies: 44 },
-            { name: "كريستيانو رونالدو", goals: 885, assists: 250, pace: 81, shooting: 94, passing: 80, dribbling: 82, trophies: 35 },
-            { name: "كيليان مبابي", goals: 330, assists: 125, pace: 97, shooting: 90, passing: 82, dribbling: 92, trophies: 17 },
-            { name: "إيرلينج هالاند", goals: 260, assists: 50, pace: 89, shooting: 95, passing: 70, dribbling: 78, trophies: 7 },
-            { name: "محمد صلاح", goals: 340, assists: 140, pace: 90, shooting: 89, passing: 85, dribbling: 90, trophies: 11 },
-            { name: "فينيسيوس جونيور", goals: 105, assists: 85, pace: 95, shooting: 84, passing: 82, dribbling: 96, trophies: 12 },
-            { name: "كريم بنزيما", goals: 470, assists: 210, pace: 76, shooting: 88, passing: 84, dribbling: 86, trophies: 33 },
-            { name: "كيفين دي بروين", goals: 170, assists: 285, pace: 74, shooting: 86, passing: 97, dribbling: 87, trophies: 22 },
-            { name: "نيمار جونيور", goals: 435, assists: 245, pace: 85, shooting: 85, passing: 90, dribbling: 95, trophies: 28 },
-            { name: "روبرت ليفاندوفسكي", goals: 650, assists: 150, pace: 75, shooting: 93, passing: 79, dribbling: 82, trophies: 29 },
-            { name: "لوكا مودريتش", goals: 120, assists: 160, pace: 72, shooting: 78, passing: 93, dribbling: 90, trophies: 33 },
-            { name: "زين الدين زيدان", goals: 155, assists: 165, pace: 78, shooting: 82, passing: 95, dribbling: 96, trophies: 15 },
-            { name: "رونالدينيو", goals: 310, assists: 190, pace: 88, shooting: 84, passing: 91, dribbling: 97, trophies: 13 },
-            { name: "لامين يامال", goals: 15, assists: 20, pace: 91, shooting: 81, passing: 88, dribbling: 94, trophies: 2 }
+            { name: "ليونيل ميسي", goals: 838, assists: 374, pace: 78, shooting: 90, passing: 95, dribbling: 96, trophies: 44 },
+            { name: "كريستيانو رونالدو", goals: 893, assists: 251, pace: 81, shooting: 94, passing: 80, dribbling: 82, trophies: 35 },
+            { name: "كيليان مبابي", goals: 332, assists: 126, pace: 97, shooting: 90, passing: 82, dribbling: 92, trophies: 17 },
+            { name: "إيرلينج هالاند", goals: 262, assists: 52, pace: 89, shooting: 95, passing: 70, dribbling: 78, trophies: 7 },
+            { name: "محمد صلاح", goals: 345, assists: 142, pace: 90, shooting: 89, passing: 85, dribbling: 90, trophies: 11 },
+            { name: "فينيسيوس جونيور", goals: 110, assists: 88, pace: 95, shooting: 84, passing: 82, dribbling: 96, trophies: 12 },
+            { name: "كريم بنزيما", goals: 472, assists: 212, pace: 76, shooting: 88, passing: 84, dribbling: 86, trophies: 33 },
+            { name: "كيفين دي بروين", goals: 172, assists: 288, pace: 74, shooting: 86, passing: 97, dribbling: 87, trophies: 22 },
+            { name: "نيمار جونيور", goals: 436, assists: 248, pace: 85, shooting: 85, passing: 90, dribbling: 95, trophies: 28 },
+            { name: "روبرت ليفاندوفسكي", goals: 654, assists: 152, pace: 75, shooting: 93, passing: 79, dribbling: 82, trophies: 29 },
+            { name: "لوكا مودريتش", goals: 122, assists: 162, pace: 72, shooting: 78, passing: 93, dribbling: 90, trophies: 34 },
+            { name: "زين الدين زيدان", goals: 156, assists: 167, pace: 78, shooting: 82, passing: 95, dribbling: 96, trophies: 15 },
+            { name: "رونالدينيو", goals: 312, assists: 192, pace: 88, shooting: 84, passing: 91, dribbling: 97, trophies: 13 },
+            { name: "لامين يامال", goals: 18, assists: 22, pace: 91, shooting: 81, passing: 88, dribbling: 94, trophies: 3 }
         ];
 
         const datalist = document.getElementById('players');
@@ -263,13 +274,13 @@
             document.getElementById('name2').innerText = p2.name;
 
             const stats = [
-                { label: "إجمالي الأهداف", key: "goals", max: 1000 },
-                { label: "إجمالي الأسيست", key: "assists", max: 400 },
-                { label: "عدد البطولات 🏆", key: "trophies", max: 50 },
-                { label: "السرعة", key: "pace", max: 100 },
-                { label: "التسديد", key: "shooting", max: 100 },
-                { label: "التمرير", key: "passing", max: 100 },
-                { label: "المراوغة", key: "dribbling", max: 100 }
+                { label: "الأهداف", key: "goals", max: 1000, icon: "fa-solid fa-bullseye" },
+                { label: "الأسيست", key: "assists", max: 400, icon: "fa-solid fa-hands-helping" },
+                { label: "البطولات", key: "trophies", max: 50, icon: "fa-solid fa-trophy" },
+                { label: "السرعة", key: "pace", max: 100, icon: "fa-solid fa-bolt" },
+                { label: "التسديد", key: "shooting", max: 100, icon: "fa-solid fa-fire" },
+                { label: "التمرير", key: "passing", max: 100, icon: "fa-solid fa-route" },
+                { label: "المراوغة", key: "dribbling", max: 100, icon: "fa-solid fa-wand-magic-sparkles" }
             ];
 
             let html = "";
@@ -282,7 +293,6 @@
                 const perc1 = (val1 / s.max) * 100;
                 const perc2 = (val2 / s.max) * 100;
 
-                // تمييز خانة البطولات بلون مختلف
                 const extraClass = s.key === "trophies" ? "trophy-count" : "";
 
                 html += `
@@ -291,7 +301,10 @@
                             <div class="${win1} ${extraClass}">${val1}</div>
                             <div class="progress-container"><div class="progress-bar" style="width: ${perc1}%; background: var(--secondary)"></div></div>
                         </td>
-                        <td class="stat-label">${s.label}</td>
+                        <td class="stat-label">
+                            <i class="${s.icon}"></i>
+                            ${s.label}
+                        </td>
                         <td width="40%">
                             <div class="${win2} ${extraClass}">${val2}</div>
                             <div class="progress-container"><div class="progress-bar" style="width: ${perc2}%; background: var(--primary)"></div></div>
