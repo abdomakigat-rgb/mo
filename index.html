@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مقارنة نجوم كرة القدم 2026</title>
+    <style>
+        /* --- CSS: التنسيق والتصميم --- */
+        :root {
+            --primary: #00ff88;
+            --secondary: #6200ea;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        .selectors {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .player-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #334155;
+            background: #0f172a;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .vs-badge {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            background: rgba(0, 255, 136, 0.1);
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            display: none; /* يظهر عند المقارنة */
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .winner {
+            color: var(--primary);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .btn-compare {
+            grid-column: 1 / span 3;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(45deg, var(--secondary), #7c3aed);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-compare:hover {
+            transform: scale(1.02);
+        }
+
+        datalist {
+            background-color: #1e293b;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>المقارن الذكي | Player Compare Pro</h1>
+        <p>إحصائيات موسم 2025/2026</p>
+    </header>
+
+    <div class="container">
+        <div class="selectors">
+            <!-- اختيار اللاعب الأول -->
+            <div class="player-box">
+                <input list="players" id="p1-input" placeholder="ابحث عن اللاعب الأول...">
+            </div>
+
+            <div class="vs-badge">VS</div>
+
+            <!-- اختيار اللاعب الثاني -->
+            <div class="player-box">
+                <input list="players" id="p2-input" placeholder="ابحث عن اللاعب الثاني...">
+            </div>
+
+            <!-- القائمة المنسدلة الذكية -->
+            <datalist id="players">
+                <!-- سيتم ملؤها بواسطة JS -->
+            </datalist>
+
+            <button class="btn-compare" onclick="startComparison()">قارن الآن</button>
+        </div>
+
+        <!-- جدول النتائج -->
+        <table class="comparison-table" id="result-table">
+            <thead>
+                <tr>
+                    <th id="name1" style="color: var(--primary); font-size: 1.2rem;">-</th>
+                    <th>الإحصائية</th>
+                    <th id="name2" style="color: var(--primary); font-size: 1.2rem;">-</th>
+                </tr>
+            </thead>
+            <tbody id="stats-body">
+                <!-- الإحصائيات تظهر هنا -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // --- JS: البيانات والوظائف ---
+
+        // قاعدة بيانات مصغرة لأشهر اللاعبين (موسم 2026 التقديري)
+        const playersDatabase = [
+            { name: "كيليان مبابي", team: "ريال مدريد", goals: 38, assists: 12, pace: 97, shooting: 92, passing: 84 },
+            { name: "إيرلينج هالاند", team: "مانشستر سيتي", goals: 42, assists: 5, pace: 89, shooting: 94, passing: 70 },
+            { name: "محمد صلاح", team: "ليفربول", goals: 25, assists: 15, pace: 90, shooting: 88, passing: 86 },
+            { name: "فينيسيوس جونيور", team: "ريال مدريد", goals: 22, assists: 18, pace: 95, shooting: 85, passing: 83 },
+            { name: "جمال موسيالا", team: "بايرن ميونخ", goals: 15, assists: 20, pace: 88, shooting: 82, passing: 90 },
+            { name: "لامين يامال", team: "برشلونة", goals: 12, assists: 22, pace: 91, shooting: 80, passing: 89 },
+            { name: "جود بيلينجهام", team: "ريال مدريد", goals: 18, assists: 14, pace: 82, shooting: 85, passing: 88 },
+            { name: "هاري كين", team: "بايرن ميونخ", goals: 35, assists: 10, pace: 70, shooting: 93, passing: 87 }
+        ];
+
+        // تعبئة القائمة بالأسماء تلقائياً
+        const datalist = document.getElementById('players');
+        playersDatabase.forEach(p => {
+            let option = document.createElement('option');
+            option.value = p.name;
+            datalist.appendChild(option);
+        });
+
+        function startComparison() {
+            const p1Name = document.getElementById('p1-input').value;
+            const p2Name = document.getElementById('p2-input').value;
+
+            const p1 = playersDatabase.find(p => p.name === p1Name);
+            const p2 = playersDatabase.find(p => p.name === p2Name);
+
+            if (!p1 || !p2) {
+                alert("يرجى اختيار لاعبين من القائمة المتاحة!");
+                return;
+            }
+
+            // تحديث الأسماء
+            document.getElementById('name1').innerText = p1.name;
+            document.getElementById('name2').innerText = p2.name;
+
+            // بناء الصفوف
+            const stats = [
+                { label: "الأهداف", key: "goals" },
+                { label: "التمريرات", key: "assists" },
+                { label: "السرعة", key: "pace" },
+                { label: "التسديد", key: "shooting" },
+                { label: "التمرير", key: "passing" }
+            ];
+
+            let html = "";
+            stats.forEach(s => {
+                const val1 = p1[s.key];
+                const val2 = p2[s.key];
+                const win1 = val1 > val2 ? "winner" : "";
+                const win2 = val2 > val1 ? "winner" : "";
+
+                html += `
+                    <tr>
+                        <td class="${win1}">${val1}</td>
+                        <td class="stat-label">${s.label}</td>
+                        <td class="${win2}">${val2}</td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('stats-body').innerHTML = html;
+            document.getElementById('result-table').style.display = "table";
+        }
+    </script>
+</body>
+</html>
