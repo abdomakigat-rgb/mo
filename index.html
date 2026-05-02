@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مقارنة نجوم كرة القدم 2026</title>
+    <title>المقارن الاحترافي | Player Compare Pro 2026</title>
     <style>
-        /* --- CSS: التنسيق والتصميم --- */
+        /* --- CSS: التنسيق والتصميم المطور --- */
         :root {
             --primary: #00ff88;
             --secondary: #6200ea;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
+            --bg: #0b0f1a;
+            --card-bg: #161e2d;
             --text: #f8fafc;
+            --accent: #f1c40f;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
@@ -23,11 +24,18 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -35,153 +43,194 @@
 
         .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .selectors {
             display: grid;
             grid-template-columns: 1fr auto 1fr;
-            gap: 20px;
+            gap: 30px;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
-        .player-box {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        input[type="text"] {
-            padding: 12px;
-            border-radius: 10px;
-            border: 2px solid #334155;
+        .player-box input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #2d3748;
             background: #0f172a;
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .player-box input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
         }
 
         .vs-badge {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 900;
             color: var(--primary);
             background: rgba(0, 255, 136, 0.1);
-            padding: 10px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
+            border: 2px solid var(--primary);
         }
 
+        .btn-compare {
+            grid-column: 1 / span 3;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(45deg, var(--secondary), #7c3aed);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(98, 0, 234, 0.3);
+        }
+
+        .btn-compare:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(98, 0, 234, 0.4);
+        }
+
+        /* جدول النتائج الاحترافي */
         .comparison-table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0 15px;
             margin-top: 20px;
-            display: none; /* يظهر عند المقارنة */
+            display: none;
+            animation: fadeIn 0.5s ease;
         }
 
-        .comparison-table th, .comparison-table td {
+        .comparison-table th {
+            padding: 20px;
+            font-size: 1.4rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+        }
+
+        .comparison-table td {
             padding: 15px;
             text-align: center;
-            border-bottom: 1px solid #334155;
+            background: rgba(255,255,255,0.02);
         }
 
         .stat-label {
-            color: #94a3b8;
+            color: var(--accent);
             font-weight: bold;
-            text-transform: uppercase;
             font-size: 0.9rem;
+            background: rgba(241, 196, 15, 0.05) !important;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: #2d3748;
+            border-radius: 10px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1s ease-in-out;
         }
 
         .winner {
             color: var(--primary);
             font-weight: bold;
-            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
         }
 
-        .btn-compare {
-            grid-column: 1 / span 3;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(45deg, var(--secondary), #7c3aed);
-            color: white;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn-compare:hover {
-            transform: scale(1.02);
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        datalist {
-            background-color: #1e293b;
+        /* تحسينات الموبايل */
+        @media (max-width: 768px) {
+            .selectors { grid-template-columns: 1fr; }
+            .vs-badge { display: none; }
+            .btn-compare { grid-column: 1; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>المقارن الذكي | Player Compare Pro</h1>
-        <p>إحصائيات موسم 2025/2026</p>
+        <h1>المقارن الذكي Pro</h1>
+        <p>الجيل القادم من تحليل بيانات اللاعبين 2026</p>
     </header>
 
     <div class="container">
         <div class="selectors">
-            <!-- اختيار اللاعب الأول -->
             <div class="player-box">
-                <input list="players" id="p1-input" placeholder="ابحث عن اللاعب الأول...">
+                <input list="players" id="p1-input" placeholder="اسم اللاعب الأول...">
             </div>
 
             <div class="vs-badge">VS</div>
 
-            <!-- اختيار اللاعب الثاني -->
             <div class="player-box">
-                <input list="players" id="p2-input" placeholder="ابحث عن اللاعب الثاني...">
+                <input list="players" id="p2-input" placeholder="اسم اللاعب الثاني...">
             </div>
 
-            <!-- القائمة المنسدلة الذكية -->
-            <datalist id="players">
-                <!-- سيتم ملؤها بواسطة JS -->
-            </datalist>
+            <datalist id="players"></datalist>
 
-            <button class="btn-compare" onclick="startComparison()">قارن الآن</button>
+            <button class="btn-compare" onclick="startComparison()">بدء التحليل والمقارنة</button>
         </div>
 
-        <!-- جدول النتائج -->
         <table class="comparison-table" id="result-table">
             <thead>
                 <tr>
-                    <th id="name1" style="color: var(--primary); font-size: 1.2rem;">-</th>
-                    <th>الإحصائية</th>
-                    <th id="name2" style="color: var(--primary); font-size: 1.2rem;">-</th>
+                    <th id="name1">-</th>
+                    <th style="width: 20%; color: #94a3b8; font-size: 1rem;">المقاييس</th>
+                    <th id="name2">-</th>
                 </tr>
             </thead>
-            <tbody id="stats-body">
-                <!-- الإحصائيات تظهر هنا -->
-            </tbody>
+            <tbody id="stats-body"></tbody>
         </table>
     </div>
 
     <script>
-        // --- JS: البيانات والوظائف ---
+        // --- JS المطور مع بيانات موسعة ونظام أشرطة التقدم ---
 
-        // قاعدة بيانات مصغرة لأشهر اللاعبين (موسم 2026 التقديري)
         const playersDatabase = [
-            { name: "كيليان مبابي", team: "ريال مدريد", goals: 38, assists: 12, pace: 97, shooting: 92, passing: 84 },
-            { name: "إيرلينج هالاند", team: "مانشستر سيتي", goals: 42, assists: 5, pace: 89, shooting: 94, passing: 70 },
-            { name: "محمد صلاح", team: "ليفربول", goals: 25, assists: 15, pace: 90, shooting: 88, passing: 86 },
-            { name: "فينيسيوس جونيور", team: "ريال مدريد", goals: 22, assists: 18, pace: 95, shooting: 85, passing: 83 },
-            { name: "جمال موسيالا", team: "بايرن ميونخ", goals: 15, assists: 20, pace: 88, shooting: 82, passing: 90 },
-            { name: "لامين يامال", team: "برشلونة", goals: 12, assists: 22, pace: 91, shooting: 80, passing: 89 },
-            { name: "جود بيلينجهام", team: "ريال مدريد", goals: 18, assists: 14, pace: 82, shooting: 85, passing: 88 },
-            { name: "هاري كين", team: "بايرن ميونخ", goals: 35, assists: 10, pace: 70, shooting: 93, passing: 87 }
+            { name: "كيليان مبابي", goals: 38, assists: 12, pace: 97, shooting: 92, passing: 84, dribbling: 93 },
+            { name: "إيرلينج هالاند", goals: 42, assists: 5, pace: 89, shooting: 94, passing: 70, dribbling: 80 },
+            { name: "محمد صلاح", goals: 28, assists: 15, pace: 90, shooting: 91, passing: 86, dribbling: 89 },
+            { name: "فينيسيوس جونيور", goals: 22, assists: 18, pace: 95, shooting: 85, passing: 83, dribbling: 96 },
+            { name: "لامين يامال", goals: 15, assists: 22, pace: 91, shooting: 82, passing: 89, dribbling: 95 },
+            { name: "جود بيلينجهام", goals: 20, assists: 14, pace: 82, shooting: 86, passing: 88, dribbling: 87 },
+            { name: "ليونيل ميسي", goals: 18, assists: 20, pace: 78, shooting: 89, passing: 94, dribbling: 92 },
+            { name: "كريستيانو رونالدو", goals: 30, assists: 8, pace: 81, shooting: 92, passing: 78, dribbling: 80 },
+            { name: "جمال موسيالا", goals: 16, assists: 19, pace: 88, shooting: 83, passing: 89, dribbling: 94 },
+            { name: "روبرت ليفاندوفسكي", goals: 32, assists: 7, pace: 75, shooting: 93, passing: 77, dribbling: 82 }
         ];
 
-        // تعبئة القائمة بالأسماء تلقائياً
         const datalist = document.getElementById('players');
         playersDatabase.forEach(p => {
             let option = document.createElement('option');
@@ -197,21 +246,20 @@
             const p2 = playersDatabase.find(p => p.name === p2Name);
 
             if (!p1 || !p2) {
-                alert("يرجى اختيار لاعبين من القائمة المتاحة!");
+                alert("يرجى اختيار لاعبين صحيحين من القائمة!");
                 return;
             }
 
-            // تحديث الأسماء
             document.getElementById('name1').innerText = p1.name;
             document.getElementById('name2').innerText = p2.name;
 
-            // بناء الصفوف
             const stats = [
-                { label: "الأهداف", key: "goals" },
-                { label: "التمريرات", key: "assists" },
-                { label: "السرعة", key: "pace" },
-                { label: "التسديد", key: "shooting" },
-                { label: "التمرير", key: "passing" }
+                { label: "الأهداف", key: "goals", max: 50 },
+                { label: "التمريرات الحاسمـة", key: "assists", max: 30 },
+                { label: "السـرعة", key: "pace", max: 100 },
+                { label: "قوة التسديد", key: "shooting", max: 100 },
+                { label: "دقة التمرير", key: "passing", max: 100 },
+                { label: "المراوغة", key: "dribbling", max: 100 }
             ];
 
             let html = "";
@@ -220,12 +268,21 @@
                 const val2 = p2[s.key];
                 const win1 = val1 > val2 ? "winner" : "";
                 const win2 = val2 > val1 ? "winner" : "";
+                
+                const perc1 = (val1 / s.max) * 100;
+                const perc2 = (val2 / s.max) * 100;
 
                 html += `
                     <tr>
-                        <td class="${win1}">${val1}</td>
+                        <td width="40%">
+                            <div class="${win1}">${val1}</div>
+                            <div class="progress-container"><div class="progress-bar" style="width: ${perc1}%; background: var(--secondary)"></div></div>
+                        </td>
                         <td class="stat-label">${s.label}</td>
-                        <td class="${win2}">${val2}</td>
+                        <td width="40%">
+                            <div class="${win2}">${val2}</div>
+                            <div class="progress-container"><div class="progress-bar" style="width: ${perc2}%; background: var(--primary)"></div></div>
+                        </td>
                     </tr>
                 `;
             });
