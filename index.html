@@ -42,7 +42,7 @@
                 radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
         }
 
-        /* تحسين الهيدر وإضافة إطار للوجو */
+        /* تحسين الهيدر وإضافة إطار للوجو - تكبير اللوجو */
         header {
             padding: 50px 20px;
             text-align: center;
@@ -50,7 +50,7 @@
         }
 
         .logo-container img {
-            height: 140px;
+            height: 180px; /* تم تكبيره من 140px */
             padding: 10px;
             border: 3px solid var(--main-gold); /* إطار ذهبي حول اللوجو */
             border-radius: 50%; /* جعل الإطار دائري */
@@ -85,7 +85,7 @@
         }
 
         .hero-text h1 {
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: clamp(2.5rem, 6vw, 4.5rem); /* تعديل طفيف ليناسب السطرين */
             background: linear-gradient(180deg, var(--accent-gold) 0%, var(--main-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -94,6 +94,7 @@
             font-weight: 900;
             animation: fadeInUp 1s ease;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            line-height: 1.2;
         }
 
         .hero-text p {
@@ -139,6 +140,22 @@
             color: var(--primary-green);
             font-size: 2.5rem;
             margin-bottom: 10px;
+        }
+
+        /* تنسيق حاوية الصورة والاسم */
+        .reader-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .reader-photo {
+            width: 110px; /* حجم كبير وواضح */
+            height: auto; /* الحفاظ على الأبعاد الأصلية */
+            border: none; /* بدون إطار */
+            display: block;
         }
 
         /* تنسيق الـ iframe ليكون متجاوباً */
@@ -231,11 +248,13 @@
         /* استجابة الموبايل */
         @media (max-width: 600px) {
             .player-card { padding: 40px 20px; width: 92%; border-radius: 45px; }
-            .hero-text h1 { font-size: 2.8rem; }
+            .hero-text h1 { font-size: 2.2rem; }
             .hero-text p { font-size: 1.1rem; letter-spacing: 2px; }
             .btn-modern { padding: 18px 40px; font-size: 1.1rem; width: 100%; }
-            .logo-container img { height: 110px; }
+            .logo-container img { height: 130px; }
             iframe { width: 100% !important; }
+            .reader-info { flex-direction: row; gap: 15px; } /* ضمان البقاء بجانب بعض حتى على الموبايل */
+            .reader-photo { width: 80px; }
         }
     </style>
 </head>
@@ -249,14 +268,17 @@
 
     <main class="main-content">
         <div class="hero-text">
-            <h1>تلاوات الشيخ أحمد عبد القادر</h1>
+            <h1>الــــشــــيــــخ <br> احمد عبد القادر</h1>
             <p>سَكِينَةٌ لِقَلْبِكَ.. وَنُورٌ لِدَرْبِكَ</p>
         </div>
 
         <div class="player-card">
             <div class="track-header">
                 <h2>تلاوة عطرة</h2>
-                <p style="color: var(--main-gold); font-size: 1.2rem; opacity: 0.9; margin-top: 5px;">القارئ أحمد عبد القادر</p>
+                <div class="reader-info">
+                    <img src="https://i.ibb.co/RGg3YP1v/Picsart-26-05-02-23-55-55-388.png" alt="القارئ أحمد عبد القادر" class="reader-photo">
+                    <p style="color: var(--main-gold); font-size: 1.2rem; opacity: 0.9;">القارئ أحمد عبد القادر</p>
+                </div>
             </div>
 
             <div class="iframe-container">
