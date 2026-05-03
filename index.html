@@ -168,10 +168,13 @@
         .iframe-container {
             width: 100%;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             margin-bottom: 40px;
             border-radius: 30px;
             overflow: hidden;
+            gap: 20px; /* مسافة بين المقاطع */
         }
 
         .action-area {
@@ -321,15 +324,16 @@
 
         <div class="player-card">
             <div class="track-header">
-                <h2>تلاوة عطرة</h2>
+                <h2>تلاوات عطرة</h2>
                 <div class="reader-info">
                     <img src="https://i.ibb.co/RGg3YP1v/Picsart-26-05-02-23-55-55-388.png" alt="القارئ أحمد عبد القادر" class="reader-photo">
-                    <p style="color: var(--main-gold); font-size: 1.2rem; opacity: 0.9;">القارئ الــــشــــيــــخ أحــــمــــد عــبــد الــقــادر</p>
+                    <p style="color: var(--main-gold); font-size: 1.2rem; opacity: 0.9;">القارئ أحمد عبد القادر</p>
                 </div>
             </div>
 
             <div class="iframe-container">
                 <iframe src="https://archive.org/embed/20260503_20260503_1142" width="500" height="30" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen=""></iframe>
+                <iframe src="https://archive.org/embed/2_20260503_20260503_1448" width="500" height="30" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
             </div>
 
             <div class="action-area">
@@ -342,7 +346,7 @@
 
     <button id="install-btn">
         <img src="https://i.ibb.co/B2SsvK2B/logo.png" alt="App Logo">
-        <span>إضغط هــــنا لتثبيت التطبيق </span>
+        <span>ثبت التطبيق الآن.. واستمع بوضوح</span>
     </button>
 
     <footer>
