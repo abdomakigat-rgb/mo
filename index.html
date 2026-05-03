@@ -220,33 +220,39 @@
             left: 100%;
         }
 
-        /* زرار التثبيت الذكي */
+        /* زرار التثبيت العائم الذكي */
         #install-btn {
             display: none; /* يظهر فقط عبر JavaScript */
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
             background: var(--pure-white);
             color: var(--primary-green);
-            padding: 12px 30px;
-            border: 2px dashed var(--main-gold);
+            padding: 10px 20px;
+            border: 2px solid var(--main-gold);
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
             align-items: center;
-            gap: 10px;
-            transition: 0.3s;
-            animation: fadeInUp 2s ease;
+            gap: 12px;
+            z-index: 999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            animation: fadeInUp 1s ease;
         }
 
         #install-btn img {
-            width: 25px;
-            height: 25px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
+            border: 1px solid var(--main-gold);
         }
 
         #install-btn:hover {
-            background: var(--main-gold);
+            transform: scale(1.1);
+            background: var(--primary-green);
             color: white;
-            border-style: solid;
         }
 
         /* Footer */
@@ -293,6 +299,7 @@
             iframe { width: 100% !important; }
             .reader-info { flex-direction: row; gap: 15px; }
             .reader-photo { width: 80px; }
+            #install-btn { left: 20px; bottom: 20px; padding: 8px 15px; font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -327,14 +334,14 @@
                 <a href="https://archive.org/download/20260503_20260503_1142/20260503_1142.mp3" download class="btn-modern">
                     <span>تحميل التلاوة بجودة عالية MP3</span>
                 </a>
-
-                <button id="install-btn">
-                    <span>ثبت التطبيق الآن</span>
-                    <img src="https://i.ibb.co/B2SsvK2B/logo.png" alt="logo">
-                </button>
             </div>
         </div>
     </main>
+
+    <button id="install-btn">
+        <img src="https://i.ibb.co/B2SsvK2B/logo.png" alt="App Logo">
+        <span>تثبيت الآن</span>
+    </button>
 
     <footer>
         <div class="footer-content">
@@ -358,10 +365,8 @@
         const installBtn = document.getElementById('install-btn');
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // منع المتصفح من إظهار شريط التثبيت الافتراضي
             e.preventDefault();
             deferredPrompt = e;
-            // إظهار زر التثبيت الخاص بنا
             installBtn.style.display = 'flex';
         });
 
@@ -370,7 +375,7 @@
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
+                        console.log('User accepted');
                     }
                     deferredPrompt = null;
                     installBtn.style.display = 'none';
@@ -378,13 +383,10 @@
             }
         });
 
-        // إخفاء الزر إذا تم تثبيت التطبيق بالفعل
         window.addEventListener('appinstalled', (evt) => {
             installBtn.style.display = 'none';
-            console.log('App was installed');
         });
 
-        // فحص إضافي: إذا كان التطبيق مفتوحاً بالفعل كـ Standalone أخفِ الزر
         if (window.matchMedia('(display-mode: standalone)').matches) {
             installBtn.style.display = 'none';
         }
