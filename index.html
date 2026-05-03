@@ -177,6 +177,27 @@
             gap: 20px; /* مسافة بين المقاطع */
         }
 
+        /* تنسيق الفاصل الزخرفي */
+        .separator {
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--main-gold), transparent);
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .separator::after {
+            content: "✦";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--pure-white);
+            padding: 0 10px;
+            color: var(--main-gold);
+            font-size: 0.8rem;
+        }
+
         .action-area {
             display: flex;
             flex-direction: column;
@@ -333,7 +354,10 @@
 
             <div class="iframe-container">
                 <iframe src="https://archive.org/embed/20260503_20260503_1142" width="500" height="30" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen=""></iframe>
+                <div class="separator"></div>
                 <iframe src="https://archive.org/embed/2_20260503_20260503_1448" width="500" height="30" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
+                <div class="separator"></div>
+                <iframe src="https://archive.org/embed/20260503_20260503_1502" width="500" height="30" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>
             </div>
 
             <div class="action-area">
