@@ -56,10 +56,16 @@
             border-radius: 50%; /* جعل الإطار دائري */
             background: var(--pure-white);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            animation: fadeInDown 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            animation: fadeInDown 1.2s cubic-bezier(0.22, 1, 0.36, 1), pulse-gold 3s infinite;
             transition: transform 0.5s ease, border-color 0.5s ease;
         }
         
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+
         .logo-container img:hover {
             transform: scale(1.05);
             border-color: var(--primary-green);
@@ -250,12 +256,12 @@
             </div>
 
             <audio id="mainAudio" controls>
-                <source src="https://server11.mp3quran.net/a_ahmed/001.mp3" type="audio/mpeg">
+                <source src="https://archive.org/download/20260503_20260503_1142/20260503.mp3" type="audio/mpeg">
                 متصفحك لا يدعم تشغيل الصوت.
             </audio>
 
             <div class="action-area">
-                <a href="https://server11.mp3quran.net/a_ahmed/001.mp3" download class="btn-modern">
+                <a href="https://archive.org/download/20260503_20260503_1142/20260503.mp3" download class="btn-modern">
                     <span>تحميل التلاوة بجودة عالية MP3</span>
                 </a>
             </div>
