@@ -14,13 +14,13 @@
         }
 
         :root {
-            --main-gold: #D4AF37;        
-            --deep-brown: #3E2723;      
-            --accent-gold: #FAD6A5;     
-            --dark-bg: #0d0a07;         
-            --glass: rgba(30, 20, 15, 0.75); 
-            --text-light: #FDF5E6;      
-            --royal-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            --main-gold: #D4AF37;        /* ذهبي ملكي للخطوط */
+            --primary-green: #004d40;    /* أخضر عميق */
+            --light-green: #e8f5e9;      /* أخضر فاتح جداً للخلفيات */
+            --pure-white: #ffffff;       /* أبيض صافي */
+            --accent-gold: #B8860B;      /* ذهبي داكن للتباين */
+            --glass: rgba(255, 255, 255, 0.9); /* زجاجي أبيض */
+            --royal-shadow: 0 20px 40px rgba(0, 77, 64, 0.15);
         }
 
         * {
@@ -31,20 +31,18 @@
         }
 
         body {
-            background-color: var(--dark-bg);
-            color: var(--text-light);
+            background-color: var(--light-green);
+            color: var(--primary-green);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            /* إضافة نمط زخرفي خفيف جداً في الخلفية */
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(62, 39, 35, 0.15) 0%, transparent 40%),
-                url('https://www.transparenttextures.com/patterns/dark-matter.png');
+                radial-gradient(circle at 20% 30%, rgba(0, 77, 64, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
         }
 
-        /* تحسين الهيدر */
+        /* تحسين الهيدر وإضافة إطار للوجو */
         header {
             padding: 50px 20px;
             text-align: center;
@@ -53,13 +51,18 @@
 
         .logo-container img {
             height: 140px;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)) drop-shadow(0 0 15px rgba(212, 175, 55, 0.2));
+            padding: 10px;
+            border: 3px solid var(--main-gold); /* إطار ذهبي حول اللوجو */
+            border-radius: 50%; /* جعل الإطار دائري */
+            background: var(--pure-white);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             animation: fadeInDown 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease, border-color 0.5s ease;
         }
         
         .logo-container img:hover {
-            transform: scale(1.05) rotate(2deg);
+            transform: scale(1.05);
+            border-color: var(--primary-green);
         }
 
         /* القسم الرئيسي */
@@ -83,14 +86,14 @@
             margin-bottom: 15px;
             font-weight: 900;
             animation: fadeInUp 1s ease;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         .hero-text p {
             text-align: center;
             font-size: 1.4rem;
-            color: var(--accent-gold);
-            opacity: 0.8;
+            color: var(--primary-green);
+            opacity: 0.9;
             letter-spacing: 5px;
             font-weight: 300;
             animation: fadeInUp 1.4s ease;
@@ -99,19 +102,18 @@
         
         .hero-text p::after, .hero-text p::before {
             content: "✦";
+            color: var(--main-gold);
             margin: 0 15px;
             font-size: 0.8rem;
             vertical-align: middle;
         }
 
-        /* مشغل الصوت الاحترافي */
+        /* مشغل الصوت باللون الأبيض والأخضر */
         .player-card {
             width: 100%;
             max-width: 650px;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            background: var(--pure-white);
+            border: 2px solid var(--primary-green);
             border-radius: 60px;
             padding: 60px;
             box-shadow: var(--royal-shadow);
@@ -120,34 +122,23 @@
             overflow: hidden;
         }
 
-        /* تأثير التوهج خلف الكارد */
-        .player-card::after {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-            z-index: -1;
-        }
-
         .track-header {
             text-align: center;
             margin-bottom: 40px;
         }
 
         .track-header h2 {
-            color: #fff;
+            color: var(--primary-green);
             font-size: 2.5rem;
             margin-bottom: 10px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        /* مشغل الصوت المخصص */
+        /* تخصيص الـ Audio Player ليتناسب مع الثيم الأخضر */
         audio {
             width: 100%;
             height: 60px;
             margin-bottom: 40px;
-            filter: sepia(100%) saturate(150%) hue-rotate(350deg) brightness(1.2);
+            filter: hue-rotate(90deg) brightness(1.1); /* تحويل التدرج للأخضر */
             border-radius: 30px;
         }
 
@@ -159,16 +150,16 @@
 
         .btn-modern {
             position: relative;
-            background: linear-gradient(135deg, #4e342e 0%, var(--deep-brown) 100%);
-            color: var(--accent-gold);
+            background: var(--primary-green);
+            color: var(--pure-white);
             padding: 22px 65px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 800;
             font-size: 1.3rem;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border: 2px solid var(--main-gold);
+            box-shadow: 0 10px 20px rgba(0, 77, 64, 0.2);
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -176,17 +167,17 @@
         }
 
         .btn-modern:hover {
-            transform: translateY(-12px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.25);
-            background: linear-gradient(135deg, var(--deep-brown) 0%, #2b1d1a 100%);
-            border-color: var(--main-gold);
+            transform: translateY(-10px);
+            background: var(--pure-white);
+            color: var(--primary-green);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
         }
 
         .btn-modern::before {
             content: '';
             position: absolute;
             top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);
             transition: 0.8s;
         }
 
@@ -203,14 +194,14 @@
 
         .footer-content p:first-child {
             font-size: 1.1rem;
-            color: var(--main-gold);
+            color: var(--primary-green);
             font-weight: bold;
             margin-bottom: 10px;
         }
 
         .footer-content p:last-child {
             font-size: 0.85rem;
-            opacity: 0.5;
+            opacity: 0.7;
             color: var(--accent-gold);
         }
 
