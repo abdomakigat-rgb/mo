@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تلاوات الشيخ أحمد عبد القادر | تجربة فريدة</title>
     
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#004d40">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/B2SsvK2B/logo.png">
+
     <style>
         /* استدعاء الخط الخاص بك */
         @font-face {
@@ -170,8 +176,11 @@
 
         .action-area {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
             width: 100%;
+            gap: 20px;
         }
 
         .btn-modern {
@@ -209,6 +218,35 @@
 
         .btn-modern:hover::before {
             left: 100%;
+        }
+
+        /* زرار التثبيت الذكي */
+        #install-btn {
+            display: none; /* يظهر فقط عبر JavaScript */
+            background: var(--pure-white);
+            color: var(--primary-green);
+            padding: 12px 30px;
+            border: 2px dashed var(--main-gold);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1.1rem;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+            animation: fadeInUp 2s ease;
+        }
+
+        #install-btn img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+        }
+
+        #install-btn:hover {
+            background: var(--main-gold);
+            color: white;
+            border-style: solid;
         }
 
         /* Footer */
@@ -253,7 +291,7 @@
             .btn-modern { padding: 18px 40px; font-size: 1.1rem; width: 100%; }
             .logo-container img { height: 130px; }
             iframe { width: 100% !important; }
-            .reader-info { flex-direction: row; gap: 15px; } /* ضمان البقاء بجانب بعض حتى على الموبايل */
+            .reader-info { flex-direction: row; gap: 15px; }
             .reader-photo { width: 80px; }
         }
     </style>
@@ -289,6 +327,11 @@
                 <a href="https://archive.org/download/20260503_20260503_1142/20260503_1142.mp3" download class="btn-modern">
                     <span>تحميل التلاوة بجودة عالية MP3</span>
                 </a>
+
+                <button id="install-btn">
+                    <span>ثبت التطبيق الآن</span>
+                    <img src="https://i.ibb.co/B2SsvK2B/logo.png" alt="logo">
+                </button>
             </div>
         </div>
     </main>
@@ -300,5 +343,51 @@
         </div>
     </footer>
 
+    <script>
+        // تسجيل Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('SW Registered'))
+                .catch(err => console.log('SW Failed', err));
+            });
+        }
+
+        // منطق زر التثبيت
+        let deferredPrompt;
+        const installBtn = document.getElementById('install-btn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // منع المتصفح من إظهار شريط التثبيت الافتراضي
+            e.preventDefault();
+            deferredPrompt = e;
+            // إظهار زر التثبيت الخاص بنا
+            installBtn.style.display = 'flex';
+        });
+
+        installBtn.addEventListener('click', (e) => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                    installBtn.style.display = 'none';
+                });
+            }
+        });
+
+        // إخفاء الزر إذا تم تثبيت التطبيق بالفعل
+        window.addEventListener('appinstalled', (evt) => {
+            installBtn.style.display = 'none';
+            console.log('App was installed');
+        });
+
+        // فحص إضافي: إذا كان التطبيق مفتوحاً بالفعل كـ Standalone أخفِ الزر
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            installBtn.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
