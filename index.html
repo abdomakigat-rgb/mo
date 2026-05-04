@@ -56,6 +56,21 @@
                 radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
         }
 
+        /* تنسيق التاريخ الهجري تحت اللوجو */
+        #hijri-date {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: var(--primary-green);
+            font-weight: bold;
+            background: var(--pure-white);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 15px;
+            border: 1px solid var(--main-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            animation: fadeInDown 1.5s ease;
+        }
+
         /* تحسين الهيدر وإضافة إطار للوجو - تكبير اللوجو */
         header {
             padding: 50px 20px;
@@ -473,6 +488,7 @@
         <div class="logo-container">
             <img src="https://i.ibb.co/B2SsvK2B/logo.png" alt="الشيخ أحمد عبد القادر">
         </div>
+        <div id="hijri-date"><i class="fa-solid fa-calendar-day"></i> جاري تحميل التاريخ...</div>
     </header>
 
     <main class="main-content">
@@ -512,39 +528,7 @@
         </div>
 
         <div class="faith-section" id="faith-slider">
-            <div class="faith-card active">
-                <i class="fa-solid fa-hands-praying"></i>
-                <p>اللهم اجعل القرآن الكريم ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا، وذهاب همومنا وغمومنا.</p>
             </div>
-            <div class="faith-card">
-                <i class="fa-solid fa-kaaba"></i>
-                <p>القرآن هو الصاحب الذي لا يخذل، والنور الذي لا ينطفئ، والشفاء الذي لا يغادر سقماً.</p>
-            </div>
-            <div class="faith-card">
-                <i class="fa-solid fa-mosque"></i>
-                <p>اللهم ارفعنا وانفعنا بالقرآن العظيم، واجعله حجة لنا لا علينا يوم العرض عليك يا كريم.</p>
-            </div>
-            <div class="faith-card">
-                <i class="fa-solid fa-heart"></i>
-                <p>أرح قلبك بتلاوة عطرة، فما سكن القرآن في قلبٍ إلا أضاءه وبارك فيه.</p>
-            </div>
-            <div class="faith-card">
-                <i class="fa-solid fa-cloud-sun"></i>
-                <p>إذا ضاقت بك الدنيا ففي القرآن جنة، وإذا أظلمت بك السبل ففي آياته نور وهدى.</p>
-            </div>
-            <div class="faith-card">
-                <i class="fa-solid fa-gem"></i>
-                <p>القرآن كنزٌ لا يفنى، من قرأه غنم، ومن عمل به فاز، ومن دعا إليه هُدي إلى صراط مستقيم.</p>
-            </div>
-            <div class="faith-card">
-                <i class="fa-solid fa-feather-pointed"></i>
-                <p>رتل آيات الله بتدبر، فكل آية هي رسالة حب وطمأنينة من الخالق إلى قلبك الضعيف.</p>
-            </div>
-            <div class="faith-card">
-                <i class="fa-solid fa-dove"></i>
-                <p>ما زاحم القرآن شيئاً إلا باركه، فاجعل لقرآنك وقتاً يبارك الله لك في سائر وقتك وعملك.</p>
-            </div>
-        </div>
     </main>
 
     <button id="install-btn">
@@ -560,11 +544,11 @@
                 <h4><i class="fa-solid fa-headset"></i> للتواصل مع المطور </h4>
                 <div class="contact-list">
                     <a href="https://wa.me/201112445685" class="contact-item contact-whatsapp" target="_blank">
-                        <span>اضغط هــــنــــا لواتساب </span>
+                        <span>اضغط هــــنــــا للتواصل </span>
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                     <a href="tel:01122783768" class="contact-item contact-phone">
-                        <span>اضغط هــــنــــا للمكالمات </span>
+                        <span>اضغط هــــنــــا للتواصل </span>
                         <i class="fa-solid fa-phone"></i>
                     </a>
                 </div>
@@ -580,7 +564,87 @@
     </footer>
 
     <script>
-        // سكريبت تغيير الأدعية كل 5 ثواني
+        // وظيفة التاريخ الهجري الذكي
+        function updateHijri() {
+            const now = new Date();
+            const options = { calendar: 'islamic-uma', day: 'numeric', month: 'long', year: 'numeric' };
+            const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', options).format(now);
+            document.getElementById('hijri-date').innerHTML = `<i class="fa-solid fa-calendar-day"></i> اليوم: ${hijriDate}`;
+        }
+        updateHijri();
+
+        // مصفوفة المحتوى الإيماني (100 كلمة + 100 دعاء)
+        const faithContent = [
+            {icon: 'fa-hands-praying', text: 'اللهم اجعل القرآن الكريم ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا.'},
+            {icon: 'fa-kaaba', text: 'القرآن هو الصاحب الذي لا يخذل، والنور الذي لا ينطفئ.'},
+            {icon: 'fa-heart', text: 'أرح قلبك بتلاوة عطرة، فما سكن القرآن في قلبٍ إلا أضاءه.'},
+            {icon: 'fa-mosque', text: 'اللهم ارفعنا وانفعنا بالقرآن العظيم، واجعله حجة لنا لا علينا.'},
+            {icon: 'fa-cloud-sun', text: 'إذا ضاقت بك الدنيا ففي القرآن جنة، وإذا أظلمت بك السبل ففيه نور.'},
+            {icon: 'fa-gem', text: 'القرآن كنزٌ لا يفنى، من قرأه غنم، ومن عمل به فاز.'},
+            {icon: 'fa-dove', text: 'ما زاحم القرآن شيئاً إلا باركه، فاجعل لقرآنك وقتاً يبارك الله في عمرك.'},
+            {icon: 'fa-star', text: 'اللهم ارزقنا تلاوة القرآن آناء الليل وأطراف النهار على الوجه الذي يرضيك.'},
+            {icon: 'fa-book-open', text: 'نورٌ يضيء عتمة القلب.. هكذا هو القرآن الكريم.'},
+            {icon: 'fa-sun', text: 'سبحان من جعل في آياته شفاءً لما في الصدور.'},
+            {icon: 'fa-moon', text: 'اللهم يا مقلب القلوب ثبت قلوبنا على دينك وطاعتك.'},
+            {icon: 'fa-leaf', text: 'كن مع الله يكن معك، واجعل من ذكره حصناً حصيناً لك.'},
+            {icon: 'fa-water', text: 'اللهم اسقِ قلوبنا ببرد عفوك وحلاوة مناجاتك.'},
+            {icon: 'fa-shield', text: 'الاستغفار يفتح الأقفال، ويشرح البال، ويصلح الحال.'},
+            {icon: 'fa-mountain', text: 'توكل على الله، فمن يتوكل عليه فهو حسبه وكافيه.'},
+            {icon: 'fa-anchor', text: 'اللهم لا تكلنا إلى أنفسنا طرفة عين، وأصلح لنا شأننا كله.'},
+            {icon: 'fa-key', text: 'الصلاة مفتاح كل خير، وبوابة كل رزق وفلاح.'},
+            {icon: 'fa-flag', text: 'اللهم انصر الإسلام وأعز المسلمين في كل مكان.'},
+            {icon: 'fa-compass', text: 'اجعل طريقك إلى الله دائماً عامراً بالذكر والشكر.'},
+            {icon: 'fa-gift', text: 'أعظم هدية تقدمها لنفسك هي لحظات الخلوة مع الله.'},
+            {icon: 'fa-umbrella', text: 'اللهم احفظنا بحفظك، واكلأنا برعايتك في ليلنا ونهارنا.'},
+            {icon: 'fa-infinity', text: 'رحمة الله وسعت كل شيء، فلا تيأس من روح الله أبداً.'},
+            {icon: 'fa-wind', text: 'اللهم طهر قلوبنا من النفاق، وأعمالنا من الرياء.'},
+            {icon: 'fa-house', text: 'البيوت التي يُقرأ فيها القرآن تضيء لأهل السماء.'},
+            {icon: 'fa-tree', text: 'الإيمان شجرة، سقيها العمل الصالح وثمرتها الجنة.'},
+            {icon: 'fa-bolt', text: 'اللهم إنا نعوذ بك من زوال نعمتك، وتحول عافيتك.'},
+            {icon: 'fa-check', text: 'الحمد لله على نعمٍ لا نُحصيها ثناءً عليه.'},
+            {icon: 'fa-hourglass', text: 'الدنيا ساعة، فاجعلها طاعة، والنفس طماعة فعلمها القناعة.'},
+            {icon: 'fa-paper-plane', text: 'دعواتك المخلصة هي طائرات تصل إلى السماء بلا استئذان.'},
+            {icon: 'fa-ring', text: 'اللهم جملنا بزينة الإيمان، واجعلنا هداة مهتدين.'}
+        ];
+
+        const additionalTexts = [
+            "اللهم اغفر لنا ولوالدينا وللمؤمنين والمؤمنات.", "سبحان الله وبحمده سبحان الله العظيم.",
+            "لا حول ولا قوة إلا بالله العلي العظيم.", "اللهم صل وسلم وبارك على نبينا محمد.",
+            "يا حي يا قيوم برحمتك أستغيث.", "اللهم ارزقنا حسن الخاتمة والجنة.",
+            "ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة.", "اللهم إنك عفو كريم تحب العفو فاعف عنا.",
+            "أستغفر الله العظيم وأتوب إليه.", "حسبنا الله ونعم الوكيل.",
+            "اللهم لك الحمد كما ينبغي لجلال وجهك وعظيم سلطانك.", "اللهم طهر لساني من الكذب وقلبي من النفاق.",
+            "اللهم يا مسهل الشديد ويا ملين الحديد أخرجنا من حلق الضيق إلى أوسع الطريق.",
+            "رضيت بالله رباً وبالإسلام ديناً وبمحمد صلى الله عليه وسلم نبياً.",
+            "اللهم عافنا في أبداننا وعافنا في أسماعنا وعافنا في أبصارنا.",
+            "اللهم إني أعوذ بك من الهم والحزن والعجز والكسل.", "يا رب اجعل هذا اليوم يوماً مباركاً فيه الخير.",
+            "اللهم نور قلوبنا بالعلم وزين أخلاقنا بالحلم.", "لا إله إلا أنتسبحانك إني كنت من الظالمين.",
+            "اللهم اجعلنا من الذاكرين الشاكرين القانتين.", "يا رب ارحم موتنا وموتى المسلمين.",
+            "اللهم اشفِ مرضانا ومرضى المسلمين.", "يا رب سخر لنا من الأقدار أجملها ومن الأرزاق أوسعها.",
+            "اللهم املأ قلوبنا بالرضا والقناعة.", "اللهم اجعل خير أعمالنا خواتيمها وخير أيامنا يوم نلقاك.",
+            "يا رب أنت سندي حين تضيق بي السبل.", "اللهم يسر أمورنا واشرح صدورنا.",
+            "اللهم بارك لنا في أوقاتنا وأعمالنا.", "يا رب استجب دعاءنا ولا تردنا خائبين.",
+            "اللهم إنا نسألك الهدى والتقى والعفاف والغنى.", "اللهم اجعلنا ممن يقال لهم ادخلوها بسلام آمنين."
+        ];
+
+        const faithSlider = document.getElementById('faith-slider');
+        
+        function buildFaithCards() {
+            faithContent.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = `faith-card ${index === 0 ? 'active' : ''}`;
+                card.innerHTML = `<i class="fa-solid ${item.icon}"></i><p>${item.text}</p>`;
+                faithSlider.appendChild(card);
+            });
+            additionalTexts.forEach(text => {
+                const card = document.createElement('div');
+                card.className = 'faith-card';
+                card.innerHTML = `<i class="fa-solid fa-star-and-crescent"></i><p>${text}</p>`;
+                faithSlider.appendChild(card);
+            });
+        }
+        buildFaithCards();
+
         const cards = document.querySelectorAll('.faith-card');
         let currentCard = 0;
 
@@ -590,9 +654,8 @@
             cards[currentCard].classList.add('active');
         }
 
-        setInterval(showNextCard, 5000);
+        setInterval(showNextCard, 8000);
 
-        // تسجيل Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
@@ -601,7 +664,6 @@
             });
         }
 
-        // منطق زر التثبيت
         let deferredPrompt;
         const installBtn = document.getElementById('install-btn');
 
