@@ -564,12 +564,12 @@
     </footer>
 
     <script>
-        // وظيفة التاريخ الهجري فقط (بدون ميلادي)
+        // وظيفة التاريخ الهجري الذكي (عرض اليوم والشهر والسنة الهجرية فقط)
         function updateHijri() {
             const now = new Date();
             const options = { calendar: 'islamic-uma', day: 'numeric', month: 'long', year: 'numeric' };
             const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', options).format(now);
-            document.getElementById('hijri-date').innerHTML = `<i class="fa-solid fa-calendar-day"></i> التاريخ الهجري: ${hijriDate}`;
+            document.getElementById('hijri-date').innerHTML = `<i class="fa-solid fa-calendar-day"></i> التاريخ: ${hijriDate}`;
         }
         updateHijri();
 
@@ -624,7 +624,7 @@
             "اللهم املأ قلوبنا بالرضا والقناعة.", "اللهم اجعل خير أعمالنا خواتيمها وخير أيامنا يوم نلقاك.",
             "يا رب أنت سندي حين تضيق بي السبل.", "اللهم يسر أمورنا واشرح صدورنا.",
             "اللهم بارك لنا في أوقاتنا وأعمالنا.", "يا رب استجب دعاءنا ولا تردنا خائبين.",
-            "اللهم إنا نسألك الهدى والتقى والعفاف والغنى.", "اللهم اجعلنا ممن يقال لهم ادخلوها بسلام آمنين."
+            "اللهم إنا نسألك الهدى والتقى والعفاف والغنى.", "اللهم اجعلنا من الذاكرين الشاكرين القانتين."
         ];
 
         const faithSlider = document.getElementById('faith-slider');
