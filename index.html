@@ -10,6 +10,8 @@
     <meta name="author" content="عبدو مكي">
     <link rel="canonical" href="https://abdomakigat-rgb.github.io/Sheikh-Ahmed-/">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#004d40">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,6 +34,7 @@
             --accent-gold: #B8860B;      /* ذهبي داكن للتباين */
             --glass: rgba(255, 255, 255, 0.9); /* زجاجي أبيض */
             --royal-shadow: 0 20px 40px rgba(0, 77, 64, 0.15);
+            --whatsapp-color: #25D366;   /* اللون الأصلي للواتساب */
         }
 
         * {
@@ -203,6 +206,120 @@
             font-size: 0.8rem;
         }
 
+        /* قسم الأدعية والكلمات الإيمانية المتغير تلقائياً */
+        .faith-section {
+            width: 100%;
+            max-width: 600px;
+            height: 180px; /* ارتفاع ثابت لمنع اهتزاز الصفحة */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .faith-card {
+            background: var(--pure-white);
+            padding: 30px;
+            border-radius: 30px;
+            border-bottom: 4px solid var(--main-gold);
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out, visibility 1s;
+        }
+
+        .faith-card.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .faith-card i {
+            font-size: 1.8rem;
+            color: var(--main-gold);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .faith-card p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--primary-green);
+        }
+
+        /* تنسيق قائمة تواصل المطور الجديدة */
+        .dev-contact-box {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--main-gold);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dev-contact-box h4 {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: var(--primary-green);
+            border-bottom: 1px dashed var(--main-gold);
+            padding-bottom: 8px;
+        }
+
+        .contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        /* واتساب اللون الأصلي */
+        .contact-whatsapp {
+            background-color: var(--whatsapp-color);
+            color: white;
+            border: none;
+        }
+
+        .contact-whatsapp:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+            filter: brightness(1.1);
+        }
+
+        /* المكالمات */
+        .contact-phone {
+            background-color: var(--pure-white);
+            color: var(--primary-green);
+        }
+
+        .contact-phone:hover {
+            border-color: var(--main-gold);
+            transform: scale(1.02);
+            background: var(--light-green);
+        }
+
+        .contact-item i {
+            font-size: 1.3rem;
+        }
+
         .action-area {
             display: flex;
             flex-direction: column;
@@ -228,6 +345,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 12px;
         }
 
         .btn-modern:hover {
@@ -249,13 +367,13 @@
             left: 100%;
         }
 
-        /* زرار التثبيت العائم الذكي - تعديل العرض والتموضع */
+        /* زرار التثبيت العائم الذكي */
         #install-btn {
-            display: none; /* يظهر فقط عبر JavaScript */
+            display: none;
             position: fixed;
             bottom: 20px;
             left: 5%;
-            width: 90%; /* بعرض الشاشة تقريباً */
+            width: 90%;
             background: var(--pure-white);
             color: var(--primary-green);
             padding: 15px 20px;
@@ -280,15 +398,10 @@
             border: 2px solid var(--main-gold);
         }
 
-        #install-btn:hover {
-            background: var(--primary-green);
-            color: white;
-        }
-
         /* Footer */
         footer {
             padding: 60px 20px;
-            padding-bottom: 120px; /* مسافة إضافية عشان الزرار م يغطي التذييل */
+            padding-bottom: 120px;
             text-align: center;
             z-index: 10;
         }
@@ -297,7 +410,26 @@
             font-size: 1.1rem;
             color: var(--primary-green);
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+        }
+
+        .note-text {
+            font-size: 1rem;
+            color: var(--primary-green);
+            background: rgba(255, 255, 255, 0.6);
+            border-right: 4px solid var(--main-gold);
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 600px;
+            line-height: 1.8;
+            font-weight: normal;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .note-text i {
+            color: var(--main-gold);
+            margin-left: 8px;
         }
 
         .footer-content p:last-child {
@@ -331,6 +463,7 @@
             .reader-info { flex-direction: row; gap: 15px; }
             .reader-photo { width: 80px; }
             #install-btn { font-size: 0.95rem; padding: 12px; }
+            .faith-section { height: 220px; }
         }
     </style>
 </head>
@@ -350,7 +483,7 @@
 
         <div class="player-card">
             <div class="track-header">
-                <h2>تلاوات عطرة</h2>
+                <h2><i class="fa-solid fa-microphone-lines"></i> تلاوات عطرة</h2>
                 <div class="reader-info">
                     <img src="https://i.ibb.co/RGg3YP1v/Picsart-26-05-02-23-55-55-388.png" alt="القارئ أحمد عبد القادر" class="reader-photo">
                     <p style="color: var(--main-gold); font-size: 2.2rem; line-height: 1.4; opacity: 0.9; font-weight: 900;">
@@ -372,25 +505,93 @@
 
             <div class="action-area">
                 <a href="https://archive.org/download/20260503_20260503_1142/20260503_1142.mp3" download class="btn-modern">
+                    <i class="fa-solid fa-cloud-arrow-down"></i>
                     <span>تحميل التلاوة بجودة عالية MP3</span>
                 </a>
+            </div>
+        </div>
+
+        <div class="faith-section" id="faith-slider">
+            <div class="faith-card active">
+                <i class="fa-solid fa-hands-praying"></i>
+                <p>اللهم اجعل القرآن الكريم ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا، وذهاب همومنا وغمومنا.</p>
+            </div>
+            <div class="faith-card">
+                <i class="fa-solid fa-kaaba"></i>
+                <p>القرآن هو الصاحب الذي لا يخذل، والنور الذي لا ينطفئ، والشفاء الذي لا يغادر سقماً.</p>
+            </div>
+            <div class="faith-card">
+                <i class="fa-solid fa-mosque"></i>
+                <p>اللهم ارفعنا وانفعنا بالقرآن العظيم، واجعله حجة لنا لا علينا يوم العرض عليك يا كريم.</p>
+            </div>
+            <div class="faith-card">
+                <i class="fa-solid fa-heart"></i>
+                <p>أرح قلبك بتلاوة عطرة، فما سكن القرآن في قلبٍ إلا أضاءه وبارك فيه.</p>
+            </div>
+            <div class="faith-card">
+                <i class="fa-solid fa-cloud-sun"></i>
+                <p>إذا ضاقت بك الدنيا ففي القرآن جنة، وإذا أظلمت بك السبل ففي آياته نور وهدى.</p>
+            </div>
+            <div class="faith-card">
+                <i class="fa-solid fa-gem"></i>
+                <p>القرآن كنزٌ لا يفنى، من قرأه غنم، ومن عمل به فاز، ومن دعا إليه هُدي إلى صراط مستقيم.</p>
+            </div>
+            <div class="faith-card">
+                <i class="fa-solid fa-feather-pointed"></i>
+                <p>رتل آيات الله بتدبر، فكل آية هي رسالة حب وطمأنينة من الخالق إلى قلبك الضعيف.</p>
+            </div>
+            <div class="faith-card">
+                <i class="fa-solid fa-dove"></i>
+                <p>ما زاحم القرآن شيئاً إلا باركه، فاجعل لقرآنك وقتاً يبارك الله لك في سائر وقتك وعملك.</p>
             </div>
         </div>
     </main>
 
     <button id="install-btn">
         <img src="https://i.ibb.co/B2SsvK2B/logo.png" alt="App Logo">
-        <span>اضغط هــــنــــا لتثبيت التطبيق </span>
+        <span><i class="fa-solid fa-mobile-screen-button"></i> اضغط هــــنــــا لتثبيت التطبيق </span>
     </button>
 
     <footer>
         <div class="footer-content">
-            <p>تطوير عبدو مكي &copy; 2026</p>
-            <p>جميع الحقوق محفوظة لموقع تلاوات الشيخ أحمد عبد القادر</p>
+            <p><i class="fa-solid fa-code"></i> تطوير عبدو مكي &copy; 2026</p>
+            
+            <div class="dev-contact-box">
+                <h4><i class="fa-solid fa-headset"></i> للتواصل مع المطور </h4>
+                <div class="contact-list">
+                    <a href="https://wa.me/201112445685" class="contact-item contact-whatsapp" target="_blank">
+                        <span>اضغط هــــنــــا للتواصل </span>
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="tel:01122783768" class="contact-item contact-phone">
+                        <span>اضغط هــــنــــا للتواصل </span>
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="note-text">
+                <i class="fa-solid fa-circle-info"></i>
+                <b>تنبيه هام:</b> هذا الصرح الرقمي ليس تكليفاً رسمياً، بل هو <b>نبضٌ من محبّي</b> فضيلة الشيخ أحمد عبد القادر. أردنا أن نجمع شتات هذه تلاوات الخاشعة في وعاءٍ واحد يليق بمكانتها، دون طلبٍ من الشيخ أو علمٍ مسبق منه، بل هو سعيٌ تطوعي لنشر الخير والجمال الصوتي الذي يقدمه.
+            </div>
+
+            <p><i class="fa-solid fa-shield-halved"></i> جميع الحقوق محفوظة لموقع تلاوات الشيخ أحمد عبد القادر</p>
         </div>
     </footer>
 
     <script>
+        // سكريبت تغيير الأدعية كل 5 ثواني
+        const cards = document.querySelectorAll('.faith-card');
+        let currentCard = 0;
+
+        function showNextCard() {
+            cards[currentCard].classList.remove('active');
+            currentCard = (currentCard + 1) % cards.length;
+            cards[currentCard].classList.add('active');
+        }
+
+        setInterval(showNextCard, 5000);
+
         // تسجيل Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
