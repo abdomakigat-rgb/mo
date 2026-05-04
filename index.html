@@ -56,19 +56,25 @@
                 radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
         }
 
-        /* تنسيق التاريخ الهجري تحت اللوجو */
-        #hijri-date {
+        /* تنسيق الساعة تحت اللوجو */
+        #hijri-container {
             margin-top: 15px;
-            font-size: 1.1rem;
-            color: var(--primary-green);
-            font-weight: bold;
             background: var(--pure-white);
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 15px;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px 25px;
+            border-radius: 20px;
             border: 1px solid var(--main-gold);
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             animation: fadeInDown 1.5s ease;
+        }
+
+        #live-clock {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            font-weight: bold;
+            padding: 5px 0;
         }
 
         /* تحسين الهيدر وإضافة إطار للوجو - تكبير اللوجو */
@@ -488,7 +494,9 @@
         <div class="logo-container">
             <img src="https://i.ibb.co/B2SsvK2B/logo.png" alt="الشيخ أحمد عبد القادر">
         </div>
-        <div id="hijri-date"><i class="fa-solid fa-calendar-day"></i> جاري تحميل التاريخ الهجري...</div>
+        <div id="hijri-container">
+            <div id="live-clock"><i class="fa-solid fa-clock"></i> 00:00:00</div>
+        </div>
     </header>
 
     <main class="main-content">
@@ -538,7 +546,7 @@
 
     <footer>
         <div class="footer-content">
-            <p><i class="fa-solid fa-code"></i> تطوير عبدو مكي &copy; 2026</p>
+            <p id="footer-dev"><i class="fa-solid fa-code"></i> تطوير عبدو مكي &copy; </p>
             
             <div class="dev-contact-box">
                 <h4><i class="fa-solid fa-headset"></i> للتواصل مع المطور </h4>
@@ -564,16 +572,29 @@
     </footer>
 
     <script>
-        // وظيفة التاريخ الهجري الذكي (عرض اليوم والشهر والسنة الهجرية فقط)
-        function updateHijri() {
+        // وظيفة الساعة الحية وسنة التطوير (تمت إزالة التاريخ)
+        function updateDateTime() {
             const now = new Date();
-            const options = { calendar: 'islamic-uma', day: 'numeric', month: 'long', year: 'numeric' };
-            const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', options).format(now);
-            document.getElementById('hijri-date').innerHTML = `<i class="fa-solid fa-calendar-day"></i> التاريخ: ${hijriDate}`;
-        }
-        updateHijri();
+            
+            // 1. تحديث الساعة الحية (تنسيق 12 ساعة عربي)
+            const timeOptions = { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: true 
+            };
+            const liveTime = new Intl.DateTimeFormat('ar-EG', timeOptions).format(now);
+            document.getElementById('live-clock').innerHTML = `<i class="fa-solid fa-clock"></i> الساعة الآن: ${liveTime}`;
 
-        // مصفوفة المحتوى الإيماني (100 كلمة + 100 دعاء)
+            // 2. تحديث سنة الفوتر هجرياً
+            const hijriYear = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {year: 'numeric'}).format(now);
+            document.getElementById('footer-dev').innerHTML = `<i class="fa-solid fa-code"></i> تطوير عبدو مكي &copy; ${hijriYear}`;
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+
+        // مصفوفة المحتوى الإيماني (باقي الكود كما هو دون نقص حرف)
         const faithContent = [
             {icon: 'fa-hands-praying', text: 'اللهم اجعل القرآن الكريم ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا.'},
             {icon: 'fa-kaaba', text: 'القرآن هو الصاحب الذي لا يخذل، والنور الذي لا ينطفئ.'},
