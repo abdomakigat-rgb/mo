@@ -488,7 +488,7 @@
         <div class="logo-container">
             <img src="https://i.ibb.co/B2SsvK2B/logo.png" alt="الشيخ أحمد عبد القادر">
         </div>
-        <div id="hijri-date"><i class="fa-solid fa-calendar-day"></i> جاري تحميل التاريخ...</div>
+        <div id="hijri-date"><i class="fa-solid fa-calendar-day"></i> جاري تحميل التاريخ الهجري...</div>
     </header>
 
     <main class="main-content">
@@ -564,12 +564,12 @@
     </footer>
 
     <script>
-        // وظيفة التاريخ الهجري الذكي
+        // وظيفة التاريخ الهجري فقط (بدون ميلادي)
         function updateHijri() {
             const now = new Date();
             const options = { calendar: 'islamic-uma', day: 'numeric', month: 'long', year: 'numeric' };
             const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', options).format(now);
-            document.getElementById('hijri-date').innerHTML = `<i class="fa-solid fa-calendar-day"></i> اليوم: ${hijriDate}`;
+            document.getElementById('hijri-date').innerHTML = `<i class="fa-solid fa-calendar-day"></i> التاريخ الهجري: ${hijriDate}`;
         }
         updateHijri();
 
