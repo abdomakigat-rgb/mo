@@ -1,5 +1,4 @@
 importScripts('https://cdn.webpushr.com/sw-server.min.js');
-
 const cacheName = 'ahmed-abdelkader-v1';
 const assets = [
   '/',
