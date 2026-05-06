@@ -1,6 +1,7 @@
 {
   "name": "تلاوات الشيخ أحمد عبد القادر",
   "short_name": "الشيخ أحمد",
+  "id": "/Sheikh-Ahmed-/",
   "description": "تطبيق لعرض وتلاوات الشيخ أحمد عبد القادر بتجربة فريدة",
   "start_url": "index.html",
   "display": "standalone",
