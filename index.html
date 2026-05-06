@@ -211,20 +211,9 @@
             width: 60%;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--main-gold), transparent);
-            position: relative;
-            margin: 10px 0;
-        }
-
-        .separator::after {
-            content: "✦";
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--pure-white);
-            padding: 0 10px;
-            color: var(--main-gold);
-            font-size: 0.8rem;
+            margin: 10px 0;
+            display: none; /* مخفي مؤقتاً لتجنب التداخل */
         }
 
         /* قسم الأدعية والكلمات الإيمانية المتغير تلقائياً */
@@ -633,7 +622,7 @@
         updateDateTime();
         setInterval(updateDateTime, 1000);
 
-        // مصفوفة المحتوى الإيماني (باقي الكود كما هو دون نقص حرف)
+        // مصفوفة المحتوى الإيماني
         const faithContent = [
             {icon: 'fa-hands-praying', text: 'اللهم اجعل القرآن الكريم ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا.'},
             {icon: 'fa-kaaba', text: 'القرآن هو الصاحب الذي لا يخذل، والنور الذي لا ينطفئ.'},
@@ -644,27 +633,7 @@
             {icon: 'fa-dove', text: 'ما زاحم القرآن شيئاً إلا باركه، فاجعل لقرآنك وقتاً يبارك الله في عمرك.'},
             {icon: 'fa-star', text: 'اللهم ارزقنا تلاوة القرآن آناء الليل وأطراف النهار على الوجه الذي يرضيك.'},
             {icon: 'fa-book-open', text: 'نورٌ يضيء عتمة القلب.. هكذا هو القرآن الكريم.'},
-            {icon: 'fa-sun', text: 'سبحان من جعل في آياته شفاءً لما في الصدور.'},
-            {icon: 'fa-moon', text: 'اللهم يا مقلب القلوب ثبت قلوبنا على دينك وطاعتك.'},
-            {icon: 'fa-leaf', text: 'كن مع الله يكن معك، واجعل من ذكره حصناً حصيناً لك.'},
-            {icon: 'fa-water', text: 'اللهم اسقِ قلوبنا ببرد عفوك وحلاوة مناجاتك.'},
-            {icon: 'fa-shield', text: 'الاستغفار يفتح الأقفال، ويشرح البال، ويصلح الحال.'},
-            {icon: 'fa-mountain', text: 'توكل على الله، فمن يتوكل عليه فهو حسبه وكافيه.'},
-            {icon: 'fa-anchor', text: 'اللهم لا تكلنا إلى أنفسنا طرفة عين، وأصلح لنا شأننا كله.'},
-            {icon: 'fa-key', text: 'الصلاة مفتاح كل خير، وبوابة كل رزق وفلاح.'},
-            {icon: 'fa-flag', text: 'اللهم انصر الإسلام وأعز المسلمين في كل مكان.'},
-            {icon: 'fa-compass', text: 'اجعل طريقك إلى الله دائماً عامراً بالذكر والشكر.'},
-            {icon: 'fa-gift', text: 'أعظم هدية تقدمها لنفسك هي لحظات الخلوة مع الله.'},
-            {icon: 'fa-umbrella', text: 'اللهم احفظنا بحفظك، واكلأنا برعايتك في ليلنا ونهارنا.'},
-            {icon: 'fa-infinity', text: 'رحمة الله وسعت كل شيء، فلا تيأس من روح الله أبداً.'},
-            {icon: 'fa-wind', text: 'اللهم طهر قلوبنا من النفاق، وأعمالنا من الرياء.'},
-            {icon: 'fa-house', text: 'البيوت التي يُقرأ فيها القرآن تضيء لأهل السماء.'},
-            {icon: 'fa-tree', text: 'الإيمان شجرة، سقيها العمل الصالح وثمرتها الجنة.'},
-            {icon: 'fa-bolt', text: 'اللهم إنا نعوذ بك من زوال نعمتك، وتحول عافيتك.'},
-            {icon: 'fa-check', text: 'الحمد لله على نعمٍ لا نُحصيها ثناءً عليه.'},
-            {icon: 'fa-hourglass', text: 'الدنيا ساعة، فاجعلها طاعة، والنفس طماعة فعلمها القناعة.'},
-            {icon: 'fa-paper-plane', text: 'دعواتك المخلصة هي طائرات تصل إلى السماء بلا استئذان.'},
-            {icon: 'fa-ring', text: 'اللهم جملنا بزينة الإيمان، واجعلنا هداة مهتدين.'}
+            {icon: 'fa-sun', text: 'سبحان من جعل في آياته شفاءً لما في الصدور.'}
         ];
 
         const additionalTexts = [
@@ -672,19 +641,7 @@
             "لا حول ولا قوة إلا بالله العلي العظيم.", "اللهم صل وسلم وبارك على نبينا محمد.",
             "يا حي يا قيوم برحمتك أستغيث.", "اللهم ارزقنا حسن الخاتمة والجنة.",
             "ربنا آتنا في الدنيا حسنة وفي الآخرة حسنة.", "اللهم إنك عفو كريم تحب العفو فاعف عنا.",
-            "أستغفر الله العظيم وأتوب إليه.", "حسبنا الله ونعم الوكيل.",
-            "اللهم لك الحمد كما ينبغي لجلال وجهك وعظيم سلطانك.", "اللهم طهر لساني من الكذب وقلبي من النفاق.",
-            "اللهم يا مسهل الشديد ويا ملين الحديد أخرجنا من حلق الضيق إلى أوسع الطريق.",
-            "رضيت بالله رباً وبالإسلام ديناً وبمحمد صلى الله عليه وسلم نبياً.",
-            "اللهم عافنا في أبداننا وعافنا في أسماعنا وعافنا في أبصارنا.",
-            "اللهم إني أعوذ بك من الهم والحزن والعجز والكسل.", "يا رب اجعل هذا اليوم يوماً مباركاً فيه الخير.",
-            "اللهم نور قلوبنا بالعلم وزين أخلاقنا بالحلم.", "لا إله إلا أنتسبحانك إني كنت من الظالمين.",
-            "اللهم اجعلنا من الذاكرين الشاكرين القانتين.", "يا رب ارحم موتنا وموتى المسلمين.",
-            "اللهم اشفِ مرضانا ومرضى المسلمين.", "يا رب سخر لنا من الأقدار أجملها ومن الأرزاق أوسعها.",
-            "اللهم املأ قلوبنا بالرضا والقناعة.", "اللهم اجعل خير أعمالنا خواتيمها وخير أيامنا يوم نلقاك.",
-            "يا رب أنت سندي حين تضيق بي السبل.", "اللهم يسر أمورنا واشرح صدورنا.",
-            "اللهم بارك لنا في أوقاتنا وأعمالنا.", "يا رب استجب دعاءنا ولا تردنا خائبين.",
-            "اللهم إنا نسألك الهدى والتقى والعفاف والغنى.", "اللهم اجعلنا من الذاكرين الشاكرين القانتين."
+            "أستغفر الله العظيم وأتوب إليه.", "حسبنا الله ونعم الوكيل."
         ];
 
         const faithSlider = document.getElementById('faith-slider');
@@ -716,7 +673,7 @@
 
         setInterval(showNextCard, 8000);
 
-        // التعديل هنا: استخدام ملف webpushr-sw.js فوراً
+        // تسجيل الـ Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('webpushr-sw.js')
@@ -738,22 +695,11 @@
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted');
-                    }
                     deferredPrompt = null;
                     installBtn.style.display = 'none';
                 });
             }
         });
-
-        window.addEventListener('appinstalled', (evt) => {
-            installBtn.style.display = 'none';
-        });
-
-        if (window.matchMedia('(display-mode: standalone)').matches) {
-            installBtn.style.display = 'none';
-        }
     </script>
     
     <script>
@@ -766,7 +712,6 @@
             fjs.parentNode.appendChild(js);
         }(window,document, 'script', 'webpushr-jssdk'));
         
-        // التعديل هنا: إضافة الـ path والـ sw المسجل
         webpushr('setup', {
             'key':'BPQo9dj2knEacLvnNheRNA-bLpyVG8LcRQF5Eiel-PbxMIqA6nlft7ugD4lmQ8J6iJrxGKC32su0P83dcPjAvqI',
             'path': '/Sheikh-Ahmed-/',
