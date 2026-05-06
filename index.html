@@ -611,7 +611,28 @@
     </footer>
 
     <script>
-        // وظيفة الاشتراك المحسنة لضمان ظهور الإشعار على الموبايل
+        // دالة عرض الإشعار عبر Service Worker لضمان الظهور على شاشة القفل
+        function showPushNotification() {
+            if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+                const options = {
+                    body: "تم تفعيل الإشعارات بنجاح.. ستصلك التلاوات الجديدة هنا.",
+                    icon: "https://i.ibb.co/B2SsvK2B/logo.png",
+                    badge: "https://i.ibb.co/B2SsvK2B/logo.png",
+                    vibrate: [100, 50, 100],
+                    data: { dateOfArrival: Date.now() }
+                };
+                navigator.serviceWorker.ready.then(registration => {
+                    registration.showNotification("تلاوات الشيخ أحمد عبد القادر", options);
+                });
+            } else {
+                // حل بديل في حال عدم وجود SW نشط حالياً
+                new Notification("تلاوات الشيخ أحمد عبد القادر", {
+                    body: "تم تفعيل الإشعارات.. تأكد من تثبيت التطبيق لتصلك على شاشة القفل.",
+                    icon: "https://i.ibb.co/B2SsvK2B/logo.png"
+                });
+            }
+        }
+
         function handleSubscription() {
             if (!('Notification' in window)) {
                 alert('عذراً، متصفحك لا يدعم الإشعارات.');
@@ -620,39 +641,28 @@
 
             Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
-                    // استدعاء خدمة Webpushr الأصلية
+                    // نستخدم Webpushr للتحقق من حالة الاشتراك الحقيقية
                     webpushr('fetch_id', function(sid) {
                         if (sid == 'unsubscribed' || sid == 'opt-out') {
+                            // إذا لم يكن مشتركاً، نقوم ببدء عملية الاشتراك الرسمية من السيرفر
                             webpushr('subscribe');
                         } else {
-                            // إرسال إشعار تجريبي فوري من المتصفح للتأكد من العمل
-                            new Notification("تلاوات الشيخ أحمد عبد القادر", {
-                                body: "تم تفعيل الإشعارات بنجاح.. ستصلك التلاوات الجديدة هنا.",
-                                icon: "https://i.ibb.co/B2SsvK2B/logo.png"
-                            });
+                            // إذا كان مشتركاً بالفعل، نرسل إشعاراً تجريبياً من خلال الـ Service Worker لضمان ظهوره في الخارج
+                            showPushNotification();
+                            alert('الإشعارات مفعلة بالفعل على جهازك.. ستصلك التلاوات الجديدة فور نشرها.');
                         }
                     });
-                } else {
-                    alert('يرجى السماح بالإشعارات من إعدادات المتصفح لتتمكن من استقبال التنبيهات.');
+                } else if (permission === 'denied') {
+                    alert('لقد قمت بحظر الإشعارات. يرجى تفعيلها من إعدادات المتصفح (علامة القفل بجانب الرابط) لتتمكن من استقبال التلاوات الجديدة.');
                 }
             });
         }
 
-        // وظيفة الساعة الحية وسنة التطوير (تمت إزالة التاريخ)
         function updateDateTime() {
             const now = new Date();
-            
-            // 1. تحديث الساعة الحية (تنسيق 12 ساعة عربي)
-            const timeOptions = { 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit', 
-                hour12: true 
-            };
+            const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
             const liveTime = new Intl.DateTimeFormat('ar-EG', timeOptions).format(now);
             document.getElementById('live-clock').innerHTML = `<i class="fa-solid fa-clock"></i> الساعة الآن: ${liveTime}`;
-
-            // 2. تحديث سنة الفوتر هجرياً
             const hijriYear = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {year: 'numeric'}).format(now);
             document.getElementById('footer-dev').innerHTML = `<i class="fa-solid fa-code"></i> تطوير عبدو مكي &copy; ${hijriYear}`;
         }
@@ -660,7 +670,6 @@
         updateDateTime();
         setInterval(updateDateTime, 1000);
 
-        // مصفوفة المحتوى الإيماني (باقي الكود كما هو دون نقص حرف)
         const faithContent = [
             {icon: 'fa-hands-praying', text: 'اللهم اجعل القرآن الكريم ربيع قلوبنا، ونور صدورنا، وجلاء أحزاننا.'},
             {icon: 'fa-kaaba', text: 'القرآن هو الصاحب الذي لا يخذل، والنور الذي لا ينطفئ.'},
@@ -682,7 +691,7 @@
             {icon: 'fa-flag', text: 'اللهم انصر الإسلام وأعز المسلمين في كل مكان.'},
             {icon: 'fa-compass', text: 'اجعل طريقك إلى الله دائماً عامراً بالذكر والشكر.'},
             {icon: 'fa-gift', text: 'أعظم هدية تقدمها لنفسك هي لحظات الخلوة مع الله.'},
-            {icon: 'fa-umbrella', text: 'اللهم احفظنا بحفظك، واكلأنا برعايتك في ليلنا nهارنا.'},
+            {icon: 'fa-umbrella', text: 'اللهم احفظنا بحفظك، واكلأنا برعايتك في ليلنا ونهارنا.'},
             {icon: 'fa-infinity', text: 'رحمة الله وسعت كل شيء، فلا تيأس من روح الله أبداً.'},
             {icon: 'fa-wind', text: 'اللهم طهر قلوبنا من النفاق، وأعمالنا من الرياء.'},
             {icon: 'fa-house', text: 'البيوت التي يُقرأ فيها القرآن تضيء لأهل السماء.'},
@@ -705,7 +714,7 @@
             "رضيت بالله رباً وبالإسلام ديناً وبمحمد صلى الله عليه وسلم نبياً.",
             "اللهم عافنا في أبداننا وعافنا في أسماعنا وعافنا في أبصارنا.",
             "اللهم إني أعوذ بك من الهم والحزن والعجز والكسل.", "يا رب اجعل هذا اليوم يوماً مباركاً فيه الخير.",
-            "اللهم نور قلوبنا بالعلم وزين أخلاقنا بالحلم.", "لا إله إلا أنتسبحانك إني كنت من الظالمين.",
+            "اللهم نور قلوبنا بالعلم وزين أخلاقنا بالحلم.", "لا إله إلا أنت سبحانك إني كنت من الظالمين.",
             "اللهم اجعلنا من الذاكرين الشاكرين القانتين.", "يا رب ارحم موتنا وموتى المسلمين.",
             "اللهم اشفِ مرضانا ومرضى المسلمين.", "يا رب سخر لنا من الأقدار أجملها ومن الأرزاق أوسعها.",
             "اللهم املأ قلوبنا بالرضا والقناعة.", "اللهم اجعل خير أعمالنا خواتيمها خير أيامنا يوم نلقاك.",
