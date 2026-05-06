@@ -716,11 +716,12 @@
 
         setInterval(showNextCard, 8000);
 
+        // التعديل هنا: استخدام ملف webpushr-sw.js فوراً
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('SW Registered'))
-                .catch(err => console.log('SW Failed', err));
+                navigator.serviceWorker.register('webpushr-sw.js')
+                .then(reg => console.log('Webpushr SW Registered'))
+                .catch(err => console.log('Webpushr SW Failed', err));
             });
         }
 
@@ -765,7 +766,12 @@
             fjs.parentNode.appendChild(js);
         }(window,document, 'script', 'webpushr-jssdk'));
         
-        webpushr('setup',{'key':'BPQo9dj2knEacLvnNheRNA-bLpyVG8LcRQF5Eiel-PbxMIqA6nlft7ugD4lmQ8J6iJrxGKC32su0P83dcPjAvqI' });
+        // التعديل هنا: إضافة الـ path والـ sw المسجل
+        webpushr('setup', {
+            'key':'BPQo9dj2knEacLvnNheRNA-bLpyVG8LcRQF5Eiel-PbxMIqA6nlft7ugD4lmQ8J6iJrxGKC32su0P83dcPjAvqI',
+            'path': '/Sheikh-Ahmed-/',
+            'sw': 'webpushr-sw.js'
+        });
     </script>
 </body>
 </html>
