@@ -37,11 +37,23 @@
             --whatsapp-color: #25D366;   /* اللون الأصلي للواتساب */
         }
 
+        /* إعدادات الدارك مود */
+        body.dark-mode {
+            --primary-green: #e8f5e9;
+            --light-green: #0a1a15;
+            --pure-white: #122b24;
+            --royal-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.5) 0%, transparent 40%);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Thmanyah', sans-serif;
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         body {
@@ -54,6 +66,26 @@
             background-image: 
                 radial-gradient(circle at 20% 30%, rgba(0, 77, 64, 0.05) 0%, transparent 40%),
                 radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 40%);
+        }
+
+        /* زر الدارك مود */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--pure-white);
+            border: 2px solid var(--main-gold);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--main-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         /* تنسيق الساعة تحت اللوجو */
@@ -164,6 +196,32 @@
             position: relative;
             overflow: hidden;
             text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* قسم المصحف الإلكتروني */
+        .quran-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--pure-white);
+            border: 2px solid var(--main-gold);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: var(--royal-shadow);
+            margin-bottom: 50px;
+            overflow: hidden;
+        }
+        .quran-container h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            font-size: 1.8rem;
+        }
+        .quran-frame {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 15px;
         }
 
         .track-header {
@@ -273,7 +331,7 @@
 
         /* تنسيق قائمة تواصل المطور الجديدة */
         .dev-contact-box {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid var(--main-gold);
             border-radius: 20px;
             padding: 20px;
@@ -470,7 +528,7 @@
         .note-text {
             font-size: 1rem;
             color: var(--primary-green);
-            background: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.1);
             border-right: 4px solid var(--main-gold);
             padding: 15px;
             margin: 20px auto;
@@ -519,10 +577,16 @@
             #install-btn { font-size: 0.95rem; padding: 12px; }
             .faith-section { height: 220px; }
             .btn-notify { width: 100%; justify-content: center; }
+            .quran-frame { height: 450px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- زر الوضع الليلي -->
+    <button class="theme-toggle" id="theme-btn" title="تبديل الوضع">
+        <i class="fa-solid fa-moon"></i>
+    </button>
 
     <header>
         <div class="logo-container">
@@ -537,6 +601,12 @@
         <div class="hero-text">
             <h1>الــــشــــيــــخ <br> احمد عبدالقادر</h1>
             <p>سَكِينَةٌ لِقَلْبِكَ.. وَنُورٌ لِدَرْبِكَ</p>
+        </div>
+
+        <!-- المصحف الإلكتروني -->
+        <div class="quran-container">
+            <h3><i class="fa-solid fa-book-quran"></i> المصحف الإلكتروني الكامل</h3>
+            <iframe src="https://quran.ksu.edu.eg/m.php" class="quran-frame"></iframe>
         </div>
 
         <div class="player-card">
@@ -611,6 +681,18 @@
     </footer>
 
     <script>
+        // دالة تبديل الوضع الليلي
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeBtn.querySelector('i');
+            if(document.body.classList.contains('dark-mode')) {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        });
+
         // دالة عرض الإشعار عبر Service Worker لضمان الظهور على شاشة القفل
         function showPushNotification() {
             if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
@@ -625,7 +707,6 @@
                     registration.showNotification("تلاوات الشيخ أحمد عبد القادر", options);
                 });
             } else {
-                // حل بديل في حال عدم وجود SW نشط حالياً
                 new Notification("تلاوات الشيخ أحمد عبد القادر", {
                     body: "تم تفعيل الإشعارات.. تأكد من تثبيت التطبيق لتصلك على شاشة القفل.",
                     icon: "https://i.ibb.co/B2SsvK2B/logo.png"
@@ -641,13 +722,10 @@
 
             Notification.requestPermission().then(permission => {
                 if (permission === 'granted') {
-                    // نستخدم Webpushr للتحقق من حالة الاشتراك الحقيقية
                     webpushr('fetch_id', function(sid) {
                         if (sid == 'unsubscribed' || sid == 'opt-out') {
-                            // إذا لم يكن مشتركاً، نقوم ببدء عملية الاشتراك الرسمية من السيرفر
                             webpushr('subscribe');
                         } else {
-                            // إذا كان مشتركاً بالفعل، نرسل إشعاراً تجريبياً من خلال الـ Service Worker لضمان ظهوره في الخارج
                             showPushNotification();
                             alert('الإشعارات مفعلة بالفعل على جهازك.. ستصلك التلاوات الجديدة فور نشرها.');
                         }
