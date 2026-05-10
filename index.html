@@ -88,7 +88,7 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* تنسيق الساعة تحت اللوجو */
+        /* تنسيق الساعة والتاريخ تحت اللوجو */
         #hijri-container {
             margin-top: 15px;
             background: var(--pure-white);
@@ -107,6 +107,13 @@
             color: var(--accent-gold);
             font-weight: bold;
             padding: 5px 0;
+        }
+
+        #hijri-date {
+            font-size: 0.95rem;
+            color: var(--primary-green);
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            padding-top: 5px;
         }
 
         header {
@@ -180,7 +187,7 @@
             vertical-align: middle;
         }
 
-        /* تنسيق قسم الأذكار المضاف حديثاً */
+        /* تنسيق قسم الأذكار */
         .azkar-container {
             width: 100%;
             max-width: 650px;
@@ -595,6 +602,7 @@
         </div>
         <div id="hijri-container">
             <div id="live-clock"><i class="fa-solid fa-clock"></i> 00:00:00</div>
+            <div id="hijri-date"><i class="fa-solid fa-calendar-days"></i> جاري التحميل...</div>
         </div>
     </header>
 
@@ -604,29 +612,7 @@
             <p>سَكِينَةٌ لِقَلْبِكَ.. وَنُورٌ لِدَرْبِكَ</p>
         </div>
 
-        <!-- باقة الأذكار التفاعلية - البديل المفيد -->
-        <div class="azkar-container">
-            <h3><i class="fa-solid fa-mosque"></i> باقة الأذكار اليومية</h3>
-            <div class="azkar-grid">
-                <a href="https://www.hisnmuslim.com/i/ar/27" target="_blank" class="azkar-btn">
-                    <i class="fa-solid fa-sun"></i>
-                    <span>أذكار الصباح</span>
-                </a>
-                <a href="https://www.hisnmuslim.com/i/ar/28" target="_blank" class="azkar-btn">
-                    <i class="fa-solid fa-moon"></i>
-                    <span>أذكار المساء</span>
-                </a>
-                <a href="https://www.hisnmuslim.com/i/ar/1" target="_blank" class="azkar-btn">
-                    <i class="fa-solid fa-bed"></i>
-                    <span>أذكار الاستيقاظ</span>
-                </a>
-                <a href="https://www.hisnmuslim.com/i/ar/25" target="_blank" class="azkar-btn">
-                    <i class="fa-solid fa-cloud-moon"></i>
-                    <span>أذكار النوم</span>
-                </a>
-            </div>
-        </div>
-
+        <!-- قسم التلاوات -->
         <div class="player-card">
             <div class="track-header">
                 <h2><i class="fa-solid fa-microphone-lines"></i> تلاوات عطرة</h2>
@@ -659,6 +645,29 @@
                     <i class="fa-solid fa-bell"></i>
                     <span>تفعيل تنبيهات التلاوات الجديدة</span>
                 </button>
+            </div>
+        </div>
+
+        <!-- باقة الأذكار التفاعلية - الآن تحت التلاوات -->
+        <div class="azkar-container">
+            <h3><i class="fa-solid fa-mosque"></i> باقة الأذكار اليومية</h3>
+            <div class="azkar-grid">
+                <a href="https://www.hisnmuslim.com/i/ar/27" target="_blank" class="azkar-btn">
+                    <i class="fa-solid fa-sun"></i>
+                    <span>أذكار الصباح</span>
+                </a>
+                <a href="https://www.hisnmuslim.com/i/ar/28" target="_blank" class="azkar-btn">
+                    <i class="fa-solid fa-moon"></i>
+                    <span>أذكار المساء</span>
+                </a>
+                <a href="https://www.hisnmuslim.com/i/ar/1" target="_blank" class="azkar-btn">
+                    <i class="fa-solid fa-bed"></i>
+                    <span>أذكار الاستيقاظ</span>
+                </a>
+                <a href="https://www.hisnmuslim.com/i/ar/25" target="_blank" class="azkar-btn">
+                    <i class="fa-solid fa-cloud-moon"></i>
+                    <span>أذكار النوم</span>
+                </a>
             </div>
         </div>
 
@@ -754,9 +763,18 @@
 
         function updateDateTime() {
             const now = new Date();
+            
+            // تحديث الساعة
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
             const liveTime = new Intl.DateTimeFormat('ar-EG', timeOptions).format(now);
             document.getElementById('live-clock').innerHTML = `<i class="fa-solid fa-clock"></i> الساعة الآن: ${liveTime}`;
+            
+            // تحديث التاريخ الهجري
+            const hijriOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+            const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', hijriOptions).format(now);
+            document.getElementById('hijri-date').innerHTML = `<i class="fa-solid fa-calendar-days"></i> ${hijriDate}`;
+
+            // تحديث سنة التطوير في الفوتر
             const hijriYear = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {year: 'numeric'}).format(now);
             document.getElementById('footer-dev').innerHTML = `<i class="fa-solid fa-code"></i> تطوير عبدو مكي &copy; ${hijriYear}`;
         }
