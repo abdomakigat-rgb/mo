@@ -479,6 +479,28 @@
             color: var(--pure-white);
             transform: scale(1.05);
         }
+
+        /* تنسيق زر المشاركة الجديد */
+        .btn-share-holy {
+            background: linear-gradient(45deg, var(--main-gold), var(--accent-gold));
+            color: white;
+            border: none;
+            padding: 15px 45px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+        .btn-share-holy:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
         .btn-notify i {
             animation: ring 2s infinite ease;
         }
@@ -585,7 +607,7 @@
             .reader-photo { width: 80px; }
             #install-btn { font-size: 0.95rem; padding: 12px; }
             .faith-section { height: 220px; }
-            .btn-notify { width: 100%; justify-content: center; }
+            .btn-notify, .btn-share-holy { width: 100%; justify-content: center; }
             .azkar-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -645,10 +667,16 @@
                     <i class="fa-solid fa-bell"></i>
                     <span>تفعيل تنبيهات التلاوات الجديدة</span>
                 </button>
+
+                <!-- زر مشاركة الأجر الجديد -->
+                <button class="btn-share-holy" onclick="shareApp()">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span>مشاركة الأجر (الدال على الخير كفاعله)</span>
+                </button>
             </div>
         </div>
 
-        <!-- باقة الأذكار التفاعلية - الآن تحت التلاوات -->
+        <!-- باقة الأذكار التفاعلية -->
         <div class="azkar-container">
             <h3><i class="fa-solid fa-mosque"></i> باقة الأذكار اليومية</h3>
             <div class="azkar-grid">
@@ -671,8 +699,7 @@
             </div>
         </div>
 
-        <div class="faith-section" id="faith-slider">
-            </div>
+        <div class="faith-section" id="faith-slider"></div>
     </main>
 
     <button id="install-btn">
@@ -708,6 +735,22 @@
     </footer>
 
     <script>
+        // وظيفة مشاركة الموقع
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'تلاوات الشيخ أحمد عبد القادر',
+                    text: 'استمع إلى أجمل التلاوات الخاشعة للشيخ أحمد عبد القادر. الدال على الخير كفاعله.',
+                    url: window.location.href
+                }).then(() => {
+                    console.log('تمت المشاركة بنجاح');
+                })
+                .catch((error) => console.log('خطأ في المشاركة', error));
+            } else {
+                alert('عذراً، متصفحك لا يدعم خاصية المشاركة المباشرة. يمكنك نسخ الرابط وإرساله يدوياً.');
+            }
+        }
+
         const themeBtn = document.getElementById('theme-btn');
         themeBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
@@ -763,18 +806,12 @@
 
         function updateDateTime() {
             const now = new Date();
-            
-            // تحديث الساعة
             const timeOptions = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
             const liveTime = new Intl.DateTimeFormat('ar-EG', timeOptions).format(now);
             document.getElementById('live-clock').innerHTML = `<i class="fa-solid fa-clock"></i> الساعة الآن: ${liveTime}`;
-            
-            // تحديث التاريخ الهجري
             const hijriOptions = { day: 'numeric', month: 'long', year: 'numeric' };
             const hijriDate = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', hijriOptions).format(now);
             document.getElementById('hijri-date').innerHTML = `<i class="fa-solid fa-calendar-days"></i> ${hijriDate}`;
-
-            // تحديث سنة التطوير في الفوتر
             const hijriYear = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-uma', {year: 'numeric'}).format(now);
             document.getElementById('footer-dev').innerHTML = `<i class="fa-solid fa-code"></i> تطوير عبدو مكي &copy; ${hijriYear}`;
         }
