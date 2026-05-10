@@ -109,7 +109,6 @@
             padding: 5px 0;
         }
 
-        /* تحسين الهيدر وإضافة إطار للوجو - تكبير اللوجو */
         header {
             padding: 50px 20px;
             text-align: center;
@@ -117,17 +116,16 @@
         }
 
         .logo-container img {
-            height: 180px; /* تم تكبيره من 140px */
+            height: 180px;
             padding: 10px;
-            border: 3px solid var(--main-gold); /* إطار ذهبي حول اللوجو */
-            border-radius: 50%; /* جعل الإطار دائري */
+            border: 3px solid var(--main-gold);
+            border-radius: 50%;
             background: var(--pure-white);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             animation: fadeInDown 1.2s cubic-bezier(0.22, 1, 0.36, 1), pulse-gold 3s infinite;
             transition: transform 0.5s ease, border-color 0.5s ease;
         }
 
-        /* إضافة تأثير نبض ذهبي خلف اللوجو */
         @keyframes pulse-gold {
             0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
             70% { box-shadow: 0 0 0 20px rgba(212, 175, 55, 0); }
@@ -139,7 +137,6 @@
             border-color: var(--primary-green);
         }
 
-        /* القسم الرئيسي */
         .main-content {
             flex: 1;
             display: flex;
@@ -152,7 +149,7 @@
         }
 
         .hero-text h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem); /* تعديل طفيف ليناسب السطرين */
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             background: linear-gradient(180deg, var(--accent-gold) 0%, var(--main-gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -183,7 +180,49 @@
             vertical-align: middle;
         }
 
-        /* مشغل الصوت باللون الأبيض والأخضر */
+        /* تنسيق قسم الأذكار المضاف حديثاً */
+        .azkar-container {
+            width: 100%;
+            max-width: 650px;
+            background: var(--pure-white);
+            border: 2px solid var(--main-gold);
+            border-radius: 40px;
+            padding: 30px;
+            box-shadow: var(--royal-shadow);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .azkar-container h3 {
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        .azkar-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .azkar-btn {
+            background: var(--light-green);
+            border: 1px solid var(--main-gold);
+            padding: 15px;
+            border-radius: 20px;
+            color: var(--primary-green);
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .azkar-btn:hover {
+            background: var(--main-gold);
+            color: white;
+            transform: translateY(-5px);
+        }
+        .azkar-btn i { font-size: 1.5rem; }
+
         .player-card {
             width: 100%;
             max-width: 650px;
@@ -199,31 +238,6 @@
             margin-bottom: 30px;
         }
 
-        /* قسم المصحف الإلكتروني */
-        .quran-container {
-            width: 100%;
-            max-width: 900px;
-            background: var(--pure-white);
-            border: 2px solid var(--main-gold);
-            border-radius: 30px;
-            padding: 20px;
-            box-shadow: var(--royal-shadow);
-            margin-bottom: 50px;
-            overflow: hidden;
-        }
-        .quran-container h3 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--accent-gold);
-            font-size: 1.8rem;
-        }
-        .quran-frame {
-            width: 100%;
-            height: 600px;
-            border: none;
-            border-radius: 15px;
-        }
-
         .track-header {
             text-align: center;
             margin-bottom: 40px;
@@ -235,7 +249,6 @@
             margin-bottom: 10px;
         }
 
-        /* تنسيق حاوية الصورة والاسم */
         .reader-info {
             display: flex;
             align-items: center;
@@ -245,13 +258,12 @@
         }
 
         .reader-photo {
-            width: 110px; /* حجم كبير وواضح */
-            height: auto; /* الحفاظ على الأبعاد الأصلية */
-            border: none; /* بدون إطار */
+            width: 110px;
+            height: auto;
+            border: none;
             display: block;
         }
 
-        /* تنسيق الـ iframe ليكون متجاوباً */
         .iframe-container {
             width: 100%;
             display: flex;
@@ -261,10 +273,9 @@
             margin-bottom: 40px;
             border-radius: 30px;
             overflow: hidden;
-            gap: 20px; /* مسافة بين المقاطع */
+            gap: 20px;
         }
 
-        /* تنسيق الفاصل الزخرفي */
         .separator {
             width: 60%;
             height: 2px;
@@ -285,11 +296,10 @@
             font-size: 0.8rem;
         }
 
-        /* قسم الأدعية والكلمات الإيمانية المتغير تلقائياً */
         .faith-section {
             width: 100%;
             max-width: 600px;
-            height: 180px; /* ارتفاع ثابت لمنع اهتزاز الصفحة */
+            height: 180px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -329,7 +339,6 @@
             color: var(--primary-green);
         }
 
-        /* تنسيق قائمة تواصل المطور الجديدة */
         .dev-contact-box {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid var(--main-gold);
@@ -370,7 +379,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
 
-        /* واتساب اللون الأصلي */
         .contact-whatsapp {
             background-color: var(--whatsapp-color);
             color: white;
@@ -383,7 +391,6 @@
             filter: brightness(1.1);
         }
 
-        /* المكالمات */
         .contact-phone {
             background-color: var(--pure-white);
             color: var(--primary-green);
@@ -446,7 +453,6 @@
             left: 100%;
         }
 
-        /* تنسيق زر الإشعارات الجديد */
         .btn-notify {
             background: var(--pure-white);
             color: var(--accent-gold);
@@ -479,7 +485,6 @@
             100% { transform: rotate(0); }
         }
 
-        /* زرار التثبيت العائم الذكي */
         #install-btn {
             display: none;
             position: fixed;
@@ -510,7 +515,6 @@
             border: 2px solid var(--main-gold);
         }
 
-        /* Footer */
         footer {
             padding: 60px 20px;
             padding-bottom: 120px;
@@ -550,7 +554,6 @@
             color: var(--accent-gold);
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(50px); }
             to { opacity: 1; transform: translateY(0); }
@@ -564,7 +567,6 @@
             to { opacity: 1; transform: scale(1); }
         }
 
-        /* استجابة الموبايل */
         @media (max-width: 600px) {
             .player-card { padding: 40px 20px; width: 92%; border-radius: 45px; }
             .hero-text h1 { font-size: 2.2rem; }
@@ -577,13 +579,12 @@
             #install-btn { font-size: 0.95rem; padding: 12px; }
             .faith-section { height: 220px; }
             .btn-notify { width: 100%; justify-content: center; }
-            .quran-frame { height: 450px; }
+            .azkar-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- زر الوضع الليلي -->
     <button class="theme-toggle" id="theme-btn" title="تبديل الوضع">
         <i class="fa-solid fa-moon"></i>
     </button>
@@ -603,10 +604,27 @@
             <p>سَكِينَةٌ لِقَلْبِكَ.. وَنُورٌ لِدَرْبِكَ</p>
         </div>
 
-        <!-- المصحف الإلكتروني -->
-        <div class="quran-container">
-            <h3><i class="fa-solid fa-book-quran"></i> المصحف الإلكتروني الكامل</h3>
-            <iframe src="https://quran.ksu.edu.eg/m.php" class="quran-frame"></iframe>
+        <!-- باقة الأذكار التفاعلية - البديل المفيد -->
+        <div class="azkar-container">
+            <h3><i class="fa-solid fa-mosque"></i> باقة الأذكار اليومية</h3>
+            <div class="azkar-grid">
+                <a href="https://www.hisnmuslim.com/i/ar/27" target="_blank" class="azkar-btn">
+                    <i class="fa-solid fa-sun"></i>
+                    <span>أذكار الصباح</span>
+                </a>
+                <a href="https://www.hisnmuslim.com/i/ar/28" target="_blank" class="azkar-btn">
+                    <i class="fa-solid fa-moon"></i>
+                    <span>أذكار المساء</span>
+                </a>
+                <a href="https://www.hisnmuslim.com/i/ar/1" target="_blank" class="azkar-btn">
+                    <i class="fa-solid fa-bed"></i>
+                    <span>أذكار الاستيقاظ</span>
+                </a>
+                <a href="https://www.hisnmuslim.com/i/ar/25" target="_blank" class="azkar-btn">
+                    <i class="fa-solid fa-cloud-moon"></i>
+                    <span>أذكار النوم</span>
+                </a>
+            </div>
         </div>
 
         <div class="player-card">
@@ -681,7 +699,6 @@
     </footer>
 
     <script>
-        // دالة تبديل الوضع الليلي
         const themeBtn = document.getElementById('theme-btn');
         themeBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
@@ -693,7 +710,6 @@
             }
         });
 
-        // دالة عرض الإشعار عبر Service Worker لضمان الظهور على شاشة القفل
         function showPushNotification() {
             if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
                 const options = {
